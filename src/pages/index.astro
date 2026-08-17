@@ -1,0 +1,471 @@
+---
+import '../styles/global.css';
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '');
+const canonicalUrl = siteUrl ? new URL(Astro.url.pathname, `${siteUrl}/`).toString() : undefined;
+const ogImageUrl = siteUrl ? new URL('/images/monas-hero.jpg', `${siteUrl}/`).toString() : undefined;
+
+const title = 'Monumen Nasional Jakarta — Panduan Berkunjung ke Monas';
+const description = 'Panduan independen untuk mengunjungi Monumen Nasional (Monas) di Lapangan Merdeka, Jakarta: tiket, jam kunjungan, transportasi, parkir, kuliner, dan tempat menarik di sekitarnya.';
+
+const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7065.625695279536!2d106.82453567695767!3d-6.175308293812117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2z5Y2w5bC85Zu95a6257qq5b-15aGU!5e1!3m2!1sid!2sid!4v1786954904236!5m2!1sid!2sid';
+
+const attractionId = siteUrl ? `${siteUrl}/#monas` : '#monas';
+const localBusinessId = siteUrl ? `${siteUrl}/#kunjungan-monas` : '#kunjungan-monas';
+const faqId = siteUrl ? `${siteUrl}/#faq` : '#faq';
+
+const placeBase = {
+  name: 'Monumen Nasional (Monas)',
+  description,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Jalan Lapangan Monas, RT.5/RW.2, Gambir',
+    addressLocality: 'Jakarta Pusat',
+    addressRegion: 'DKI Jakarta',
+    postalCode: '10110',
+    addressCountry: 'ID'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -6.175389,
+    longitude: 106.827139
+  },
+  telephone: '+62 21 3853040',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '06:00',
+      closes: '22:00'
+    }
+  ],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: 3.9,
+    ratingCount: 4209,
+    bestRating: 5,
+    worstRating: 1
+  }
+};
+
+const attractionLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'TouristAttraction',
+      '@id': attractionId,
+      ...placeBase,
+      ...(canonicalUrl ? { url: canonicalUrl } : {}),
+      ...(ogImageUrl ? { image: ogImageUrl } : {}),
+    },
+    {
+      '@type': 'LocalBusiness',
+      '@id': localBusinessId,
+      ...placeBase,
+      ...(canonicalUrl ? { url: canonicalUrl } : {}),
+      ...(ogImageUrl ? { image: ogImageUrl } : {}),
+      priceRange: 'Rp0–Rp24.000+'
+    }
+  ]
+};
+
+const faqs = [
+  {
+    q: 'Apakah masuk kawasan Monas gratis?',
+    a: 'Ya. Masuk ke kawasan taman Monas tidak dipungut biaya. Tiket diperlukan bila Anda ingin memasuki museum di dasar tugu atau naik ke pelataran puncak.'
+  },
+  {
+    q: 'Hari apa Monas tutup?',
+    a: 'Kawasan Monas pada umumnya beroperasi Selasa sampai Minggu dan tutup pada Senin. Jadwal tugu, museum, pelataran puncak, atau acara khusus dapat berbeda, jadi periksa kanal resmi Monas sebelum berangkat.'
+  },
+  {
+    q: 'Bagaimana cara paling mudah menuju Monas dengan transportasi umum?',
+    a: 'TransJakarta adalah pilihan praktis karena Halte Monumen Nasional dilayani Koridor 1, Koridor 2, Koridor 3, dan beberapa rute lain. Stasiun Gambir juga berada di sisi timur kawasan dan dapat dilanjutkan dengan berjalan kaki atau kendaraan singkat.'
+  },
+  {
+    q: 'Apakah MRT sudah berhenti di Monas?',
+    a: 'Belum. Stasiun MRT Monas merupakan bagian proyek MRT Jakarta Fase 2A dan masih dalam pembangunan. Gunakan TransJakarta, kereta ke area pusat kota, taksi, atau transportasi daring untuk kunjungan saat ini.'
+  },
+  {
+    q: 'Berapa lama waktu yang nyaman untuk berkunjung?',
+    a: 'Siapkan sekitar 2–3 jam untuk taman, relief, museum, dan antrean menuju puncak. Jika hanya berjalan santai dan melihat tugu dari luar, 60–90 menit biasanya cukup.'
+  },
+  {
+    q: 'Di mana parkir resmi untuk pengunjung?',
+    a: 'Pelataran Parkir IRTI Monas di sisi selatan merupakan kantong parkir utama yang lazim digunakan pengunjung. Pada acara besar, pengaturan akses dan kantong parkir dapat berubah sehingga transportasi umum biasanya lebih praktis.'
+  }
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': faqId,
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a
+    }
+  }))
+};
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#19382f" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(attractionLd)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HXM22WWPKP');
+    </script>
+  </head>
+  <body class="bg-[var(--cream)] text-[var(--forest)] antialiased">
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[color:rgba(15,38,32,.88)] text-white backdrop-blur-xl">
+      <div class="section-shell flex h-20 items-center justify-between gap-6">
+        <a href="#awal" aria-label="Monas Jakarta — kembali ke awal" class="shrink-0">
+          <img src="/logo.svg" alt="Logo Monas Jakarta" class="h-12 w-auto" width="340" height="96" />
+        </a>
+        <nav aria-label="Navigasi utama" class="hidden items-center gap-6 text-sm font-semibold md:flex">
+          <a class="transition hover:text-[var(--gold)]" href="#rencana">Kunjungan</a>
+          <a class="transition hover:text-[var(--gold)]" href="#transportasi">Transportasi</a>
+          <a class="transition hover:text-[var(--gold)]" href="#sekitar">Sekitar Monas</a>
+          <a class="transition hover:text-[var(--gold)]" href="#faq">FAQ</a>
+        </nav>
+        <a href="#peta" class="rounded-full border border-[var(--gold)]/60 px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-[var(--gold)] transition hover:bg-[var(--gold)] hover:text-[var(--forest)]">Buka peta</a>
+      </div>
+    </header>
+
+    <main id="awal">
+      <section class="relative min-h-[760px] overflow-hidden bg-[var(--forest)] text-white lg:min-h-[860px]">
+        <img src="/images/monas-hero.jpg" alt="Monumen Nasional menjulang di langit Jakarta" class="absolute inset-0 h-full w-full object-cover object-center" width="1280" height="853" fetchpriority="high" />
+        <div class="hero-mask absolute inset-0"></div>
+        <div class="section-shell relative flex min-h-[760px] items-end pb-20 pt-36 lg:min-h-[860px] lg:pb-28">
+          <div class="grid w-full items-end gap-12 lg:grid-cols-[1.35fr_.65fr]">
+            <div class="max-w-4xl">
+              <p class="eyebrow text-[var(--gold)]">Jantung Jakarta · Lapangan Merdeka</p>
+              <h1 class="mt-5 max-w-4xl font-display text-6xl font-semibold leading-[.92] tracking-[-.055em] sm:text-7xl lg:text-[7.5rem]">
+                Monas,<br /><span class="text-[var(--gold)]">api kemerdekaan</span> di cakrawala kota.
+              </h1>
+              <p class="mt-8 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">
+                Monumen Nasional setinggi 132 meter berdiri di pusat Lapangan Merdeka—tempat sejarah, ruang kota, museum, dan panorama Jakarta bertemu dalam satu garis vertikal yang tak mungkin tertukar.
+              </p>
+              <div class="mt-9 flex flex-wrap gap-3">
+                <a href="#rencana" class="rounded-full bg-[var(--red)] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">Rencanakan kunjungan</a>
+                <a href="#kisah" class="rounded-full border border-white/30 bg-white/5 px-6 py-3 text-sm font-bold text-white backdrop-blur transition hover:bg-white/10">Kenali kisah Monas</a>
+              </div>
+            </div>
+            <aside class="glass relative overflow-hidden rounded-[2rem] p-7 lg:ml-auto lg:max-w-sm">
+              <div class="absolute right-6 top-4 text-7xl font-display text-[var(--gold)]/25">01</div>
+              <p class="eyebrow text-white/55">Sebelum berangkat</p>
+              <dl class="mt-7 space-y-5">
+                <div class="border-b border-white/15 pb-4">
+                  <dt class="text-xs uppercase tracking-[.18em] text-white/55">Kawasan</dt>
+                  <dd class="mt-1 text-lg font-semibold">Selasa–Minggu · 06.00–22.00 WIB</dd>
+                </div>
+                <div class="border-b border-white/15 pb-4">
+                  <dt class="text-xs uppercase tracking-[.18em] text-white/55">Masuk taman</dt>
+                  <dd class="mt-1 text-lg font-semibold">Gratis</dd>
+                </div>
+                <div>
+                  <dt class="text-xs uppercase tracking-[.18em] text-white/55">Waktu nyaman</dt>
+                  <dd class="mt-1 text-lg font-semibold">2–3 jam</dd>
+                </div>
+              </dl>
+              <p class="mt-6 text-xs leading-5 text-white/55">Jam tugu, museum, pelataran puncak, dan jadwal acara dapat berbeda dari jam kawasan.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="kisah" class="relative overflow-hidden bg-[var(--paper)] py-24 sm:py-32">
+        <div class="section-shell grid gap-12 lg:grid-cols-[.78fr_1.22fr] lg:gap-20">
+          <div>
+            <p class="eyebrow">Monumen, bukan sekadar landmark</p>
+            <h2 class="display-title mt-4">Sebuah garis tegak untuk mengingat perjuangan.</h2>
+            <div class="monument-rule mt-8"></div>
+          </div>
+          <div class="grid gap-8 sm:grid-cols-2">
+            <p class="text-lg leading-8 text-[var(--muted)] sm:col-span-2">
+              Pembangunan Monas dimulai pada 17 Agustus 1961 dan monumen dibuka untuk umum pada 12 Juli 1975. Bentuk obelisknya menjulang 132 meter, berpuncak pada nyala api berlapis emas yang menjadi lambang semangat kemerdekaan Indonesia.
+            </p>
+            <div class="rounded-[1.75rem] border border-[var(--forest)]/10 bg-[var(--cream)] p-7">
+              <p class="font-display text-5xl text-[var(--red)]">132 m</p>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">tinggi Monas—proporsi vertikal yang menjadi titik orientasi di pusat Jakarta.</p>
+            </div>
+            <div class="rounded-[1.75rem] border border-[var(--forest)]/10 bg-[var(--forest)] p-7 text-white">
+              <p class="font-display text-5xl text-[var(--gold)]">1975</p>
+              <p class="mt-3 text-sm leading-6 text-white/65">tahun Monas resmi dibuka untuk publik setelah masa pembangunan panjang.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[var(--forest)] py-7 text-white">
+        <div class="section-shell grid gap-6 text-center sm:grid-cols-3 sm:text-left">
+          <div><span class="text-xs uppercase tracking-[.2em] text-white/45">Lokasi</span><p class="mt-1 font-semibold">Gambir, Jakarta Pusat</p></div>
+          <div><span class="text-xs uppercase tracking-[.2em] text-white/45">Koordinat</span><p class="mt-1 font-semibold">−6.175389, 106.827139</p></div>
+          <div><span class="text-xs uppercase tracking-[.2em] text-white/45">Akses utama</span><p class="mt-1 font-semibold">TransJakarta · Gambir · IRTI</p></div>
+        </div>
+      </section>
+
+      <section id="rencana" class="py-24 sm:py-32">
+        <div class="section-shell">
+          <div class="grid items-end gap-8 lg:grid-cols-[1fr_.8fr]">
+            <div>
+              <p class="eyebrow">Rencanakan kunjungan</p>
+              <h2 class="display-title mt-4 max-w-3xl">Datang pagi, naik ke atas, lalu sisakan waktu untuk membaca sejarah.</h2>
+            </div>
+            <p class="max-w-xl text-base leading-7 text-[var(--muted)] lg:justify-self-end">
+              Kawasan taman dan fasilitas di dalam tugu tidak selalu memiliki jam layanan yang sama. Untuk antrean pelataran puncak, akhir pekan dan hari libur biasanya lebih padat; datang lebih awal memberi ruang lebih banyak untuk menikmati museum dan relief.
+            </p>
+          </div>
+
+          <div class="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <article class="rounded-[2rem] bg-[var(--paper)] p-7 shadow-[0_12px_50px_rgba(25,56,47,.07)]">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-lg text-[var(--gold)]">◷</span>
+              <h3 class="mt-7 font-display text-2xl">Jam kawasan</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Selasa–Minggu, umumnya 06.00–22.00 WIB. Senin tutup. Jam tugu dan puncak dapat lebih singkat.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--paper)] p-7 shadow-[0_12px_50px_rgba(25,56,47,.07)]">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--red)] text-lg text-white">☼</span>
+              <h3 class="mt-7 font-display text-2xl">Waktu terbaik</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">06.00–09.00 untuk udara yang lebih nyaman dan 16.00–menjelang malam untuk cahaya kota. Hindari tengah hari bila ingin banyak berjalan.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--paper)] p-7 shadow-[0_12px_50px_rgba(25,56,47,.07)]">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--gold)] text-lg text-[var(--forest)]">⌛</span>
+              <h3 class="mt-7 font-display text-2xl">Durasi nyaman</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">2–3 jam untuk taman, museum, relief, dan puncak. Sekitar 60–90 menit bila Anda hanya menikmati kawasan luar.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--paper)] p-7 shadow-[0_12px_50px_rgba(25,56,47,.07)]">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-lg text-[var(--gold)]">P</span>
+              <h3 class="mt-7 font-display text-2xl">Parkir</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Gunakan Pelataran Parkir IRTI Monas di sisi selatan. Saat acara besar, ikuti rekayasa lalu lintas dan kantong parkir resmi yang diumumkan Dishub.</p>
+            </article>
+          </div>
+
+          <div class="mt-16 overflow-hidden rounded-[2.4rem] bg-[var(--forest)] text-white">
+            <div class="grid lg:grid-cols-[.86fr_1.14fr]">
+              <div class="p-8 sm:p-10 lg:p-12">
+                <p class="eyebrow text-[var(--gold)]">Tiket & biaya</p>
+                <h3 class="mt-4 font-display text-4xl leading-tight sm:text-5xl">Taman gratis. Museum dan puncak bertiket.</h3>
+                <p class="mt-5 max-w-lg text-sm leading-7 text-white/65">Tarif di bawah mengikuti informasi publik Monas. Kartu pembayaran, kategori pengunjung, atau tarif acara khusus dapat berubah—cek kanal resmi sebelum datang.</p>
+              </div>
+              <div class="grid border-t border-white/10 sm:grid-cols-2 lg:border-l lg:border-t-0">
+                <div class="p-8 sm:p-10">
+                  <p class="text-xs font-bold uppercase tracking-[.2em] text-white/45">Pelataran puncak</p>
+                  <p class="mt-4 font-display text-4xl text-[var(--gold)]">Rp24.000</p>
+                  <p class="mt-2 text-sm text-white/60">dewasa</p>
+                  <div class="mt-6 space-y-2 border-t border-white/10 pt-5 text-sm text-white/70"><p>Mahasiswa · Rp13.000</p><p>Anak/pelajar · Rp6.000</p></div>
+                </div>
+                <div class="border-t border-white/10 p-8 sm:border-l sm:border-t-0 sm:p-10">
+                  <p class="text-xs font-bold uppercase tracking-[.2em] text-white/45">Museum / cawan</p>
+                  <p class="mt-4 font-display text-4xl text-[var(--gold)]">Rp8.000</p>
+                  <p class="mt-2 text-sm text-white/60">dewasa</p>
+                  <div class="mt-6 space-y-2 border-t border-white/10 pt-5 text-sm text-white/70"><p>Mahasiswa · Rp5.000</p><p>Anak/pelajar · Rp3.000</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[var(--paper)] py-24 sm:py-32">
+        <div class="section-shell grid items-center gap-12 lg:grid-cols-[1.1fr_.9fr] lg:gap-20">
+          <figure class="overflow-hidden rounded-[2.5rem] bg-[var(--forest)] shadow-[0_24px_80px_rgba(25,56,47,.16)]">
+            <img src="/images/monas-relief.jpg" alt="Relief sejarah Indonesia pada bagian luar Monas" class="aspect-[4/3] h-full w-full object-cover" width="1280" height="960" loading="lazy" />
+          </figure>
+          <div>
+            <p class="eyebrow">Jangan langsung ke lift</p>
+            <h2 class="display-title mt-4">Baca reliefnya sebelum melihat kota dari atas.</h2>
+            <p class="mt-6 text-base leading-8 text-[var(--muted)]">Relief di sekeliling Monas membentuk semacam garis waktu terbuka. Di bawahnya, Museum Sejarah Nasional menggunakan diorama untuk menceritakan perjalanan panjang Nusantara dan Indonesia. Dengan urutan ini, panorama dari puncak terasa seperti penutup cerita—bukan sekadar foto dari ketinggian.</p>
+            <div class="mt-8 rounded-2xl border-l-4 border-[var(--red)] bg-[var(--cream)] p-5 text-sm leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Rute singkat:</strong> taman → relief → museum → Ruang Kemerdekaan → pelataran puncak.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="transportasi" class="relative overflow-hidden bg-[var(--forest)] py-24 text-white sm:py-32">
+        <div class="absolute left-1/2 top-0 h-full w-px bg-gradient-to-b from-transparent via-[var(--gold)]/25 to-transparent"></div>
+        <div class="section-shell relative">
+          <div class="grid gap-8 lg:grid-cols-[1fr_.75fr]">
+            <div>
+              <p class="eyebrow text-[var(--gold)]">Cara ke Monas</p>
+              <h2 class="mt-4 max-w-4xl font-display text-5xl leading-[.98] tracking-[-.04em] sm:text-6xl">Pusat kota, banyak jalur. Pilih yang paling ringan.</h2>
+            </div>
+            <p class="max-w-xl text-base leading-7 text-white/65 lg:justify-self-end">Monas dikelilingi Jalan Medan Merdeka di empat sisi. Untuk hari biasa, transportasi umum menghindari kerepotan parkir; saat acara nasional, penutupan jalan bisa membuat kendaraan pribadi jauh lebih lambat.</p>
+          </div>
+
+          <div class="mt-16 grid gap-5 lg:grid-cols-2">
+            <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
+              <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">01 · Bandara Soekarno–Hatta</span>
+              <h3 class="mt-4 font-display text-3xl">Airport Railink + pusat kota</h3>
+              <p class="mt-4 text-sm leading-7 text-white/65">Naik KA Bandara menuju BNI City, lalu lanjut dengan taksi/transportasi daring atau TransJakarta ke kawasan Monas. Alternatif langsung: bus DAMRI tujuan Stasiun Gambir, kemudian lanjut berjalan kaki menuju sisi timur Monas.</p>
+            </article>
+            <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
+              <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">02 · TransJakarta</span>
+              <h3 class="mt-4 font-display text-3xl">Turun di Monumen Nasional</h3>
+              <p class="mt-4 text-sm leading-7 text-white/65">Koridor 1 (Blok M–Kota), Koridor 2 (Pulo Gadung–Monumen Nasional), Koridor 3 (Kalideres–Monas via Veteran), serta beberapa rute seperti 1A, 5C, dan 14A memberi akses ke area Monas/Balai Kota/Juanda.</p>
+            </article>
+            <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
+              <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">03 · Kereta & Gambir</span>
+              <h3 class="mt-4 font-display text-3xl">Stasiun Gambir di sisi timur</h3>
+              <p class="mt-4 text-sm leading-7 text-white/65">Jika perjalanan Anda tiba di Stasiun Gambir, kawasan Monas berada tepat di sebelah barat stasiun. Pilih berjalan kaki melalui jalur yang dibuka atau gunakan kendaraan singkat sesuai kondisi akses hari itu.</p>
+            </article>
+            <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
+              <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">04 · Taksi & transportasi daring</span>
+              <h3 class="mt-4 font-display text-3xl">Minta turun dekat pintu aktif</h3>
+              <p class="mt-4 text-sm leading-7 text-white/65">Gunakan titik tujuan “Monumen Nasional” atau “Parkir IRTI Monas”. Pintu yang aktif dapat berubah karena acara dan rekayasa lalu lintas, jadi ikuti titik penurunan resmi di aplikasi dan arahan petugas.</p>
+            </article>
+            <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
+              <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">05 · Kendaraan pribadi</span>
+              <h3 class="mt-4 font-display text-3xl">Arahkan ke Parkir IRTI</h3>
+              <p class="mt-4 text-sm leading-7 text-white/65">Jangan mengandalkan parkir di tepi Jalan Medan Merdeka. Pelataran Parkir IRTI Monas merupakan pilihan utama; pada kegiatan besar Dishub biasanya mengumumkan kantong parkir tambahan dan pengalihan lalu lintas.</p>
+            </article>
+            <article class="rounded-[2rem] border border-[var(--gold)]/35 bg-[var(--gold)]/10 p-7 sm:p-8">
+              <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">Catatan MRT</span>
+              <h3 class="mt-4 font-display text-3xl">Stasiun Monas belum beroperasi</h3>
+              <p class="mt-4 text-sm leading-7 text-white/70">Stasiun MRT Monas adalah bagian Fase 2A MRT Jakarta dan masih dalam pembangunan. Jangan merencanakan perjalanan dengan asumsi MRT sudah dapat berhenti langsung di Monas.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="peta" class="bg-[var(--paper)] py-24 sm:py-32">
+        <div class="section-shell">
+          <div class="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
+            <div>
+              <p class="eyebrow">Lokasi & orientasi</p>
+              <h2 class="display-title mt-4">Temukan gerbang yang paling masuk akal dari arah datang Anda.</h2>
+              <p class="mt-6 text-sm leading-7 text-[var(--muted)]">Alamat: Jalan Lapangan Monas, RT.5/RW.2, Gambir, Jakarta Pusat 10110. Peta di bawah menggunakan tampilan Bahasa Indonesia.</p>
+            </div>
+            <div class="rounded-[2.3rem] bg-[var(--cream)] p-3 shadow-[0_18px_70px_rgba(25,56,47,.12)]">
+              <iframe src={mapEmbed} title="Peta Monumen Nasional Jakarta" class="h-[480px] w-full rounded-[1.7rem] border-0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sekitar" class="py-24 sm:py-32">
+        <div class="section-shell">
+          <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p class="eyebrow">Rasa di sekitar Monas</p>
+              <h2 class="display-title mt-4 max-w-3xl">Dari pujasera cepat sampai meja makan Indonesia yang lebih tenang.</h2>
+            </div>
+            <p class="max-w-md text-sm leading-7 text-[var(--muted)]">Waktu tempuh sangat bergantung pada pintu keluar Monas, lalu lintas, dan moda yang Anda pilih.</p>
+          </div>
+
+          <div class="mt-14 grid gap-5 md:grid-cols-3">
+            <article class="group rounded-[2rem] border border-[var(--forest)]/10 bg-[var(--paper)] p-7 transition hover:-translate-y-1 hover:shadow-xl">
+              <p class="eyebrow text-[var(--red)]">Paling dekat</p>
+              <h3 class="mt-4 font-display text-3xl">Lenggang Jakarta</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Pujasera di area IRTI untuk pilihan cepat dan beragam. Cocok bila Anda ingin makan sebelum masuk atau sesudah keluar dari sisi selatan.</p>
+              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Jl. Medan Merdeka Selatan</p>
+            </article>
+            <article class="group rounded-[2rem] border border-[var(--forest)]/10 bg-[var(--paper)] p-7 transition hover:-translate-y-1 hover:shadow-xl">
+              <p class="eyebrow text-[var(--red)]">Masakan Manado</p>
+              <h3 class="mt-4 font-display text-3xl">Beautika · Abdul Muis</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Pilihan populer untuk masakan Manado dengan rasa tegas. Lebih nyaman dicapai dengan kendaraan singkat dari sisi barat atau selatan Monas.</p>
+              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Kawasan Abdul Muis</p>
+            </article>
+            <article class="group rounded-[2rem] border border-[var(--forest)]/10 bg-[var(--paper)] p-7 transition hover:-translate-y-1 hover:shadow-xl">
+              <p class="eyebrow text-[var(--red)]">Untuk makan santai</p>
+              <h3 class="mt-4 font-display text-3xl">Plataran Menteng</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Restoran Indonesia bergaya lebih formal di Menteng—pilihan untuk menutup hari setelah menjelajahi pusat kota.</p>
+              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Menteng · kendaraan singkat</p>
+            </article>
+          </div>
+
+          <div class="mt-24 grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20">
+            <div>
+              <p class="eyebrow">Lanjutkan langkah</p>
+              <h2 class="display-title mt-4">Monas adalah titik awal yang baik untuk pusat bersejarah Jakarta.</h2>
+              <div class="mt-9 space-y-4">
+                <article class="flex gap-5 rounded-2xl border border-[var(--forest)]/10 bg-white/40 p-5"><span class="font-display text-3xl text-[var(--red)]">01</span><div><h3 class="font-bold">Museum Nasional Indonesia</h3><p class="mt-1 text-sm leading-6 text-[var(--muted)]">Di sisi barat Lapangan Merdeka; pasangkan kunjungan untuk konteks sejarah yang lebih luas.</p></div></article>
+                <article class="flex gap-5 rounded-2xl border border-[var(--forest)]/10 bg-white/40 p-5"><span class="font-display text-3xl text-[var(--red)]">02</span><div><h3 class="font-bold">Masjid Istiqlal & Katedral Jakarta</h3><p class="mt-1 text-sm leading-6 text-[var(--muted)]">Dua landmark penting di utara Monas yang dapat dirangkai dalam satu perjalanan pusat kota.</p></div></article>
+                <article class="flex gap-5 rounded-2xl border border-[var(--forest)]/10 bg-white/40 p-5"><span class="font-display text-3xl text-[var(--red)]">03</span><div><h3 class="font-bold">Galeri Nasional Indonesia</h3><p class="mt-1 text-sm leading-6 text-[var(--muted)]">Ruang seni di sisi timur kawasan, dekat koridor Gambir dan Medan Merdeka Timur.</p></div></article>
+              </div>
+            </div>
+            <figure class="relative overflow-hidden rounded-[2.5rem] bg-[var(--forest)]">
+              <img src="/images/monas-view.jpg" alt="Pemandangan pusat Jakarta dari kawasan Monas" class="aspect-[4/3] h-full w-full object-cover" width="1280" height="853" loading="lazy" />
+              <figcaption class="absolute bottom-5 left-5 right-5 rounded-2xl bg-[var(--forest)]/80 p-4 text-xs leading-5 text-white/75 backdrop-blur">Pusat Jakarta terlihat sebagai lapisan ruang sipil, tempat ibadah, museum, stasiun, dan koridor bisnis yang rapat di sekitar Lapangan Merdeka.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="bg-[var(--paper)] py-24 sm:py-32">
+        <div class="section-shell grid gap-12 lg:grid-cols-[.68fr_1.32fr] lg:gap-20">
+          <div class="lg:sticky lg:top-28 lg:self-start">
+            <p class="eyebrow">FAQ</p>
+            <h2 class="display-title mt-4">Pertanyaan yang biasanya muncul sebelum ke Monas.</h2>
+            <p class="mt-6 max-w-sm text-sm leading-7 text-[var(--muted)]">Untuk kegiatan nasional, libur khusus, atau penutupan sementara, selalu cek pengumuman resmi pada hari kunjungan.</p>
+          </div>
+          <div class="divide-y divide-[var(--forest)]/10 border-y border-[var(--forest)]/10">
+            {faqs.map((item, index) => (
+              <details class="group py-6" open={index === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-display text-2xl">
+                  <span>{item.q}</span><span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-[var(--forest)]/20 text-sm transition group-open:rotate-45">+</span>
+                </summary>
+                <p class="max-w-3xl pt-4 text-sm leading-7 text-[var(--muted)]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="overflow-hidden bg-[var(--red)] py-16 text-white">
+        <div class="section-shell flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="eyebrow text-white/60">Satu pengingat terakhir</p>
+            <h2 class="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-5xl">Datang dengan waktu longgar—Jakarta sering mengubah rencana lebih cepat daripada peta.</h2>
+          </div>
+          <a href="#awal" class="shrink-0 rounded-full bg-white px-6 py-3 text-sm font-bold text-[var(--red)] transition hover:-translate-y-0.5">Kembali ke atas ↑</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-[#10261f] py-12 text-white">
+      <div class="section-shell grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+        <div>
+          <img src="/logo.svg" alt="Monas Jakarta" class="h-11 w-auto" width="340" height="96" loading="lazy" />
+          <p class="mt-5 max-w-2xl text-xs leading-6 text-white/50">Situs panduan independen ini tidak dikelola atau mewakili UPK Monas maupun Pemerintah Provinsi DKI Jakarta.</p>
+          <p class="mt-2 text-xs leading-6 text-white/35">Foto: Ramayoni, Christophe95, dan Gunawan Kartapranata — Wikimedia Commons. Berkas foto disimpan lokal pada situs ini.</p>
+        </div>
+        <div class="text-xs leading-6 text-white/45 md:text-right">
+          <p>Lapangan Merdeka · Gambir</p>
+          <p>Jakarta Pusat 10110 · Indonesia</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

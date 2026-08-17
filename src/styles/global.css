@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Aptos", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Georgia", "Times New Roman", serif;
+}
+
+:root {
+  color-scheme: light;
+  --ink: #16221d;
+  --forest: #19382f;
+  --cream: #f4efe5;
+  --paper: #fffdf8;
+  --gold: #d6a743;
+  --red: #c82c34;
+  --muted: #5d6e66;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--cream);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 8%, rgba(214, 167, 67, .12), transparent 30rem),
+    var(--cream);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(200, 44, 52, .18);
+}
+
+a { color: inherit; }
+
+.section-shell {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .73rem;
+  font-weight: 800;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.8rem;
+  height: 2px;
+  background: currentColor;
+  opacity: .7;
+}
+
+.display-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.65rem, 5vw, 5.5rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+}
+
+.monument-rule {
+  position: relative;
+}
+
+.monument-rule::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3.25rem;
+  width: 1px;
+  height: 3.25rem;
+  background: linear-gradient(to bottom, transparent, rgba(214, 167, 67, .75));
+}
+
+.card-shadow {
+  box-shadow: 0 22px 65px rgba(22, 34, 29, .10);
+}
+
+.glass {
+  background: rgba(16, 38, 31, .72);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, .16);
+}
+
+.hero-mask {
+  background:
+    linear-gradient(90deg, rgba(10, 29, 24, .88) 0%, rgba(10, 29, 24, .58) 42%, rgba(10, 29, 24, .08) 78%),
+    linear-gradient(0deg, rgba(10, 29, 24, .60), transparent 55%);
+}
+
+.ticket-grid > * + * {
+  border-top: 1px solid rgba(22, 34, 29, .10);
+}
+
+.route-line {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.route-line::before {
+  content: "";
+  position: absolute;
+  left: .42rem;
+  top: .6rem;
+  bottom: -.9rem;
+  width: 1px;
+  background: rgba(255, 255, 255, .24);
+}
+
+.route-line:last-child::before { display: none; }
+
+.route-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .42rem;
+  width: .85rem;
+  height: .85rem;
+  border: 2px solid #e2bd65;
+  border-radius: 999px;
+  background: var(--forest);
+}
+
+.faq-item[open] summary svg {
+  transform: rotate(45deg);
+}
+
+.map-frame iframe {
+  width: 100%;
+  min-height: 430px;
+  display: block;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .section-shell { width: min(100% - 1.25rem, 1180px); }
+  .map-frame iframe { min-height: 360px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

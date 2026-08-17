@@ -1,0 +1,11 @@
+{
+  "name": "MONAS Jakarta",
+  "short_name": "MONAS",
+  "icons": [
+    { "src": "/icons/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "theme_color": "#19382f",
+  "background_color": "#f4efe5",
+  "display": "standalone"
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 96" role="img" aria-labelledby="title desc">
+  <title id="title">MONAS Jakarta</title>
+  <desc id="desc">Simbol obelisk Monas dengan lidah api emas dan aksen merah putih.</desc>
+  <g transform="translate(8 4)">
+    <rect x="0" y="0" width="88" height="88" rx="28" fill="#19382f"/>
+    <path d="M44 12c8 7 11 13 9 19-1 4-4 7-9 9 2-5 1-9-3-13-1 6-5 10-10 13-2-4-2-8 0-12 2-5 7-10 13-16Z" fill="#d6a743"/>
+    <path d="M38 39h12l4 34H34l4-34Z" fill="#fffdf8"/>
+    <path d="M27 73h34v7H27z" fill="#c82c34"/>
+  </g>
+  <g fill="#16221d">
+    <text x="114" y="48" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="-1.6">MONAS</text>
+    <text x="117" y="70" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="3">JAKARTA • MERDEKA</text>
+  </g>
+</svg>
