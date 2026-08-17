@@ -1,12 +1,13 @@
 ---
 import '../styles/global.css';
+import SiteFooter from '../components/SiteFooter.astro';
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '');
 const canonicalUrl = siteUrl ? new URL(Astro.url.pathname, `${siteUrl}/`).toString() : undefined;
 const ogImageUrl = siteUrl ? new URL('/images/monas-hero.jpg', `${siteUrl}/`).toString() : undefined;
 
 const title = 'Monumen Nasional Jakarta — Panduan Berkunjung ke Monas';
-const description = 'Panduan independen untuk mengunjungi Monumen Nasional (Monas) di Lapangan Merdeka, Jakarta: tiket, jam kunjungan, transportasi, parkir, kuliner, dan tempat menarik di sekitarnya.';
+const description = 'Panduan independen untuk mengunjungi Monumen Nasional (Monas) di Lapangan Merdeka, Jakarta: tiket, jam kunjungan, transportasi, parkir, toilet, kuliner, penginapan, minimarket, SPBU, dan tempat menarik di sekitarnya.';
 
 const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7065.625695279536!2d106.82453567695767!3d-6.175308293812117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2z5Y2w5bC85Zu95a6257qq5b-15aGU!5e1!3m2!1sid!2sid!4v1786954904236!5m2!1sid!2sid';
 
@@ -38,6 +39,13 @@ const placeBase = {
       opens: '06:00',
       closes: '22:00'
     }
+  ],
+  amenityFeature: [
+    { '@type': 'LocationFeatureSpecification', name: 'Toilet umum', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Parkir', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Makan & minum', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Minimarket & ATM', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'SPBU & pengisian daya', value: true }
   ],
   aggregateRating: {
     '@type': 'AggregateRating',
@@ -93,6 +101,10 @@ const faqs = [
   {
     q: 'Di mana parkir resmi untuk pengunjung?',
     a: 'Pelataran Parkir IRTI Monas di sisi selatan merupakan kantong parkir utama yang lazim digunakan pengunjung. Pada acara besar, pengaturan akses dan kantong parkir dapat berubah sehingga transportasi umum biasanya lebih praktis.'
+  },
+  {
+    q: 'Apakah tersedia toilet dan fasilitas penunjang lain di sekitar Monas?',
+    a: 'Ya. Toilet umum tersedia di kawasan taman, sebagian berbayar kecil. Untuk makan, minimarket, ATM, penginapan, SPBU, hingga pengisian daya kendaraan listrik, berbagai pilihan tersedia di sekitar Gambir dan Thamrin. Ketersediaan bervariasi, jadi periksa kanal resmi atau aplikasi terkait sebelum berangkat.'
   }
 ];
 
@@ -158,6 +170,7 @@ const faqLd = {
         <nav aria-label="Navigasi utama" class="hidden items-center gap-6 text-sm font-semibold md:flex">
           <a class="transition hover:text-[var(--gold)]" href="#rencana">Kunjungan</a>
           <a class="transition hover:text-[var(--gold)]" href="#transportasi">Transportasi</a>
+          <a class="transition hover:text-[var(--gold)]" href="#fasilitas">Fasilitas</a>
           <a class="transition hover:text-[var(--gold)]" href="#sekitar">Sekitar Monas</a>
           <a class="transition hover:text-[var(--gold)]" href="#faq">FAQ</a>
         </nav>
@@ -366,11 +379,62 @@ const faqLd = {
               <p class="eyebrow">Lokasi & orientasi</p>
               <h2 class="display-title mt-4">Temukan gerbang yang paling masuk akal dari arah datang Anda.</h2>
               <p class="mt-6 text-sm leading-7 text-[var(--muted)]">Alamat: Jalan Lapangan Monas, RT.5/RW.2, Gambir, Jakarta Pusat 10110. Peta di bawah menggunakan tampilan Bahasa Indonesia.</p>
+              <a href="https://maps.app.goo.gl/FG34Yr9Wqe4JmQ7FA" target="_blank" rel="noopener" class="mt-7 inline-flex items-center gap-3 rounded-full bg-[var(--forest)] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[var(--forest)]/90">
+                Rute di Google Maps
+                <span aria-hidden="true" class="text-[var(--gold)]">↗</span>
+              </a>
             </div>
             <div class="rounded-[2.3rem] bg-[var(--cream)] p-3 shadow-[0_18px_70px_rgba(25,56,47,.12)]">
               <iframe src={mapEmbed} title="Peta Monumen Nasional Jakarta" class="h-[480px] w-full rounded-[1.7rem] border-0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="fasilitas" class="bg-[var(--paper)] py-24 sm:py-32">
+        <div class="section-shell">
+          <div class="grid items-end gap-8 lg:grid-cols-[1fr_.75fr]">
+            <div>
+              <p class="eyebrow">Fasilitas & kebutuhan</p>
+              <h2 class="display-title mt-4 max-w-3xl">Nyaman berangkat, nyaman pula kembali.</h2>
+            </div>
+            <p class="max-w-xl text-base leading-7 text-[var(--muted)] lg:justify-self-end">Situs ini bersifat nonkomersial dan tidak menyarankan penyedia tertentu—di bawah ini hanya jenis fasilitas dan lokasi umumnya. Ketersediaan dapat berubah, jadi pastikan dengan kanal resmi pada hari kunjungan.</p>
+          </div>
+
+          <div class="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <article class="rounded-[2rem] bg-[var(--cream)] p-7">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-sm font-black tracking-widest text-[var(--gold)]">WC</span>
+              <h3 class="mt-7 font-display text-2xl">Toilet umum</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Toilet umum tersedia di sejumlah titik dalam kawasan taman, umumnya dekat pintu masuk utama dan area layanan pengunjung. Sebagian toilet dipungut biaya kecil—siapkan uang pas. Di luar kawasan, Stasiun Gambir dan pusat perbelanjaan terdekat juga menyediakan toilet umum.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--cream)] p-7">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--red)] text-lg text-white">☕</span>
+              <h3 class="mt-7 font-display text-2xl">Makan & minum</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Pilihan tersedia dari pujasera dan jajanan kaki lima, warung serta rumah makan khas daerah (misalnya Padang, Manado, atau Sunda), sampai restoran keluarga dan kafe. Pada akhir pekan, gerobak makanan sering berjejer di titik ramai—pastikan daftar harga terlihat sebelum memesan.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--cream)] p-7">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--gold)] text-xs font-black tracking-widest text-[var(--forest)]">ATM</span>
+              <h3 class="mt-7 font-display text-2xl">Minimarket & ATM</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Minimarket tersebar di ruas Gambir dan Thamrin, sebagian buka 24 jam; swalayan dan supermarket umumnya berada di dalam pusat perbelanjaan terdekat. ATM tersedia di sekitar area IRTI, Stasiun Gambir, dan pusat perbelanjaan—berguna untuk tiket, parkir, dan jajanan.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--cream)] p-7">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-lg text-[var(--gold)]">⌂</span>
+              <h3 class="mt-7 font-display text-2xl">Penginapan</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Pilihan penginapan di Gambir dan pusat kota beragam: hostel dan guesthouse untuk anggaran hemat hingga hotel berbintang untuk kenyamanan lebih. Sebagian besar berjarak jalan kaki singkat atau sekitar 5–15 menit berkendara dari Monas. Pastikan harga dan fasilitas melalui kanal pemesanan resmi.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--cream)] p-7">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--red)] text-lg text-white">⚡</span>
+              <h3 class="mt-7 font-display text-2xl">SPBU & pengisian daya</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Stasiun pengisian bahan bakar umum (SPBU) berada di sejumlah ruas jalan utama sekitar Gambir dan Harmoni. Untuk kendaraan listrik, stasiun pengisian kendaraan listrik umum (SPKLU) mulai tersedia di pusat kota, umumnya di area parkir publik dan pusat perbelanjaan—periksa ketersediaannya sebelum berangkat.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--cream)] p-7">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-lg text-[var(--gold)]">P</span>
+              <h3 class="mt-7 font-display text-2xl">Parkir & kendaraan</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Pelataran Parkir IRTI di sisi selatan merupakan area parkir resmi utama untuk mobil dan bus; sepeda motor umumnya memiliki area tersendiri. Pada hari libur besar, Dishub biasanya membuka kantong parkir tambahan dan pengalihan lalu lintas—transportasi umum sering kali lebih praktis.</p>
+            </article>
+          </div>
+
+          <p class="mt-8 max-w-3xl text-xs leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Catatan netral:</strong> situs ini tidak bermitra dengan penyedia jasa mana pun dan tidak menerima komisi dari rekomendasi apa pun. Jenis serta lokasi fasilitas di atas dapat berubah karena kegiatan khusus atau pemeliharaan.</p>
         </div>
       </section>
 
@@ -387,38 +451,67 @@ const faqLd = {
           <div class="mt-14 grid gap-5 md:grid-cols-3">
             <article class="group rounded-[2rem] border border-[var(--forest)]/10 bg-[var(--paper)] p-7 transition hover:-translate-y-1 hover:shadow-xl">
               <p class="eyebrow text-[var(--red)]">Paling dekat</p>
-              <h3 class="mt-4 font-display text-3xl">Lenggang Jakarta</h3>
-              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Pujasera di area IRTI untuk pilihan cepat dan beragam. Cocok bila Anda ingin makan sebelum masuk atau sesudah keluar dari sisi selatan.</p>
-              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Jl. Medan Merdeka Selatan</p>
+              <h3 class="mt-4 font-display text-3xl">Pujasera & jajanan cepat</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Di sisi selatan kawasan, dekat area parkir IRTI, terdapat pujasera untuk pilihan cepat dan beragam—cocok untuk makan sebelum masuk atau sesudah keluar.</p>
+              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Sisi selatan kawasan · dekat Parkir IRTI</p>
             </article>
             <article class="group rounded-[2rem] border border-[var(--forest)]/10 bg-[var(--paper)] p-7 transition hover:-translate-y-1 hover:shadow-xl">
-              <p class="eyebrow text-[var(--red)]">Masakan Manado</p>
-              <h3 class="mt-4 font-display text-3xl">Beautika · Abdul Muis</h3>
-              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Pilihan populer untuk masakan Manado dengan rasa tegas. Lebih nyaman dicapai dengan kendaraan singkat dari sisi barat atau selatan Monas.</p>
-              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Kawasan Abdul Muis</p>
+              <p class="eyebrow text-[var(--red)]">Masakan khas daerah</p>
+              <h3 class="mt-4 font-display text-3xl">Warung & rumah makan</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Warung makan dan rumah makan khas daerah (Padang, Manado, Sunda, dan lainnya) tersebar di sekitar Gambir, Abdul Muis, dan Petojo—rasa tegas dengan harga yang umumnya bersahabat.</p>
+              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Gambir · Abdul Muis · Petojo</p>
             </article>
             <article class="group rounded-[2rem] border border-[var(--forest)]/10 bg-[var(--paper)] p-7 transition hover:-translate-y-1 hover:shadow-xl">
               <p class="eyebrow text-[var(--red)]">Untuk makan santai</p>
-              <h3 class="mt-4 font-display text-3xl">Plataran Menteng</h3>
-              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Restoran Indonesia bergaya lebih formal di Menteng—pilihan untuk menutup hari setelah menjelajahi pusat kota.</p>
-              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Menteng · kendaraan singkat</p>
+              <h3 class="mt-4 font-display text-3xl">Restoran keluarga & kafe</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Restoran dengan suasana lebih tenang dan kafe tersedia di arah Menteng serta sepanjang Jl. Thamrin—pilihan untuk menutup hari setelah menjelajahi pusat kota.</p>
+              <p class="mt-6 text-xs font-bold uppercase tracking-[.16em] text-[var(--forest)]/55">Menteng · Jl. Thamrin</p>
             </article>
           </div>
 
-          <div class="mt-24 grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20">
-            <div>
-              <p class="eyebrow">Lanjutkan langkah</p>
-              <h2 class="display-title mt-4">Monas adalah titik awal yang baik untuk pusat bersejarah Jakarta.</h2>
-              <div class="mt-9 space-y-4">
-                <article class="flex gap-5 rounded-2xl border border-[var(--forest)]/10 bg-white/40 p-5"><span class="font-display text-3xl text-[var(--red)]">01</span><div><h3 class="font-bold">Museum Nasional Indonesia</h3><p class="mt-1 text-sm leading-6 text-[var(--muted)]">Di sisi barat Lapangan Merdeka; pasangkan kunjungan untuk konteks sejarah yang lebih luas.</p></div></article>
-                <article class="flex gap-5 rounded-2xl border border-[var(--forest)]/10 bg-white/40 p-5"><span class="font-display text-3xl text-[var(--red)]">02</span><div><h3 class="font-bold">Masjid Istiqlal & Katedral Jakarta</h3><p class="mt-1 text-sm leading-6 text-[var(--muted)]">Dua landmark penting di utara Monas yang dapat dirangkai dalam satu perjalanan pusat kota.</p></div></article>
-                <article class="flex gap-5 rounded-2xl border border-[var(--forest)]/10 bg-white/40 p-5"><span class="font-display text-3xl text-[var(--red)]">03</span><div><h3 class="font-bold">Galeri Nasional Indonesia</h3><p class="mt-1 text-sm leading-6 text-[var(--muted)]">Ruang seni di sisi timur kawasan, dekat koridor Gambir dan Medan Merdeka Timur.</p></div></article>
+          <div class="mt-24">
+            <div class="grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20">
+              <div>
+                <p class="eyebrow">Lanjutkan langkah</p>
+                <h2 class="display-title mt-4">Monas adalah titik awal yang baik untuk pusat bersejarah Jakarta.</h2>
+                <p class="mt-6 text-sm leading-7 text-[var(--muted)]">Dalam radius sekitar 15 menit berjalan kaki dari Monas ada tiga landmark yang bisa dirangkai menjadi satu perjalanan pagi atau sore: masjid terbesar di Asia Tenggara, katedral bergaya neo-Gotik, dan museum nasional yang menyimpan warisan Nusantara.</p>
               </div>
+              <figure class="relative overflow-hidden rounded-[2.5rem] bg-[var(--forest)]">
+                <img src="/images/monas-view.jpg" alt="Pemandangan pusat Jakarta dari kawasan Monas" class="aspect-[4/3] h-full w-full object-cover" width="1280" height="853" loading="lazy" />
+                <figcaption class="absolute bottom-5 left-5 right-5 rounded-2xl bg-[var(--forest)]/80 p-4 text-xs leading-5 text-white/75 backdrop-blur">Pusat Jakarta terlihat sebagai lapisan ruang sipil, tempat ibadah, museum, stasiun, dan koridor bisnis yang rapat di sekitar Lapangan Merdeka.</figcaption>
+              </figure>
             </div>
-            <figure class="relative overflow-hidden rounded-[2.5rem] bg-[var(--forest)]">
-              <img src="/images/monas-view.jpg" alt="Pemandangan pusat Jakarta dari kawasan Monas" class="aspect-[4/3] h-full w-full object-cover" width="1280" height="853" loading="lazy" />
-              <figcaption class="absolute bottom-5 left-5 right-5 rounded-2xl bg-[var(--forest)]/80 p-4 text-xs leading-5 text-white/75 backdrop-blur">Pusat Jakarta terlihat sebagai lapisan ruang sipil, tempat ibadah, museum, stasiun, dan koridor bisnis yang rapat di sekitar Lapangan Merdeka.</figcaption>
-            </figure>
+
+            <div class="mt-14 grid gap-5 md:grid-cols-3">
+              <article class="flex flex-col rounded-[2rem] border border-[var(--forest)]/10 bg-white/40 p-7 transition hover:-translate-y-1 hover:shadow-xl">
+                <div class="flex items-start justify-between gap-3">
+                  <span class="font-display text-4xl text-[var(--red)]">01</span>
+                  <span class="rounded-full bg-[var(--forest)]/10 px-3 py-1 text-[.68rem] font-bold uppercase tracking-[.14em] text-[var(--forest)]">± 8 menit jalan kaki</span>
+                </div>
+                <h3 class="mt-5 font-display text-3xl">Masjid Istiqlal</h3>
+                <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Masjid terbesar di Asia Tenggara, dirancang oleh Frederich Silaban dan diresmikan pada 1978. Kubahnya berdiameter 45 meter—penanda tahun Proklamasi—dan pengunjung dapat masuk di luar waktu salat dengan pakaian sopan; sarung serta mukena disediakan.</p>
+                <p class="mt-auto pt-5 text-xs leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Tip:</strong> Terowongan Silaturahmi menghubungkan halaman Istiqlal dengan Katedral di seberang Jalan Katedral.</p>
+              </article>
+              <article class="flex flex-col rounded-[2rem] border border-[var(--forest)]/10 bg-white/40 p-7 transition hover:-translate-y-1 hover:shadow-xl">
+                <div class="flex items-start justify-between gap-3">
+                  <span class="font-display text-4xl text-[var(--red)]">02</span>
+                  <span class="rounded-full bg-[var(--forest)]/10 px-3 py-1 text-[.68rem] font-bold uppercase tracking-[.14em] text-[var(--forest)]">± 10 menit jalan kaki</span>
+                </div>
+                <h3 class="mt-5 font-display text-3xl">Katedral Jakarta</h3>
+                <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Gereja neo-Gotik yang selesai dibangun pada 1901 dengan dua menara kembar yang menjadi ciri khasnya. Berada tepat berseberangan dengan Istiqlal, menjadikan keduanya pasangan ikonik toleransi di pusat kota.</p>
+                <p class="mt-auto pt-5 text-xs leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Tip:</strong> Masuk di luar jadwal misa dengan pakaian sopan; jadwal ibadah dapat dilihat di papan pengumuman gereja.</p>
+              </article>
+              <article class="flex flex-col rounded-[2rem] border border-[var(--forest)]/10 bg-white/40 p-7 transition hover:-translate-y-1 hover:shadow-xl">
+                <div class="flex items-start justify-between gap-3">
+                  <span class="font-display text-4xl text-[var(--red)]">03</span>
+                  <span class="rounded-full bg-[var(--forest)]/10 px-3 py-1 text-[.68rem] font-bold uppercase tracking-[.14em] text-[var(--forest)]">± 12 menit jalan kaki</span>
+                </div>
+                <h3 class="mt-5 font-display text-3xl">Museum Nasional Indonesia</h3>
+                <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Dikenal pula sebagai Gedung Gajah, berkat arca gajah hadiah Raja Chulalongkorn pada 1871. Koleksi etnografi, keramik, tekstil, dan perunggu dari seluruh Nusantara menawarkan konteks sejarah yang lebih luas bagi kunjungan Monas Anda.</p>
+                <p class="mt-auto pt-5 text-xs leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Catatan:</strong> Umumnya tutup Senin; jam buka dan tarif dapat berubah—cek kanal resmi museum sebelum berkunjung.</p>
+              </article>
+            </div>
+            <p class="mt-6 text-xs leading-6 text-[var(--muted)]">Juga di sekitar: Galeri Nasional Indonesia di sisi timur kawasan, dekat koridor Gambir dan Medan Merdeka Timur.</p>
           </div>
         </div>
       </section>
@@ -454,18 +547,6 @@ const faqLd = {
       </section>
     </main>
 
-    <footer class="bg-[#10261f] py-12 text-white">
-      <div class="section-shell grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
-        <div>
-          <img src="/logo.svg" alt="Monas Jakarta" class="h-11 w-auto" width="340" height="96" loading="lazy" />
-          <p class="mt-5 max-w-2xl text-xs leading-6 text-white/50">Situs panduan independen ini tidak dikelola atau mewakili UPK Monas maupun Pemerintah Provinsi DKI Jakarta.</p>
-          <p class="mt-2 text-xs leading-6 text-white/35">Foto: Ramayoni, Christophe95, dan Gunawan Kartapranata — Wikimedia Commons. Berkas foto disimpan lokal pada situs ini.</p>
-        </div>
-        <div class="text-xs leading-6 text-white/45 md:text-right">
-          <p>Lapangan Merdeka · Gambir</p>
-          <p>Jakarta Pusat 10110 · Indonesia</p>
-        </div>
-      </div>
-    </footer>
+    <SiteFooter />
   </body>
 </html>

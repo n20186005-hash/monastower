@@ -1,0 +1,57 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const title = 'Pengaturan Cookie — Panduan Monas Jakarta';
+const description = 'Pengaturan cookie situs panduan independen Monumen Nasional (Monas) Jakarta: cookie yang digunakan dan cara mengelolanya di peramban Anda.';
+---
+
+<LegalLayout title={title} description={description}>
+  <p class="eyebrow text-[var(--red)]">Halaman legal</p>
+  <h1 class="mt-4 font-display text-5xl leading-[.98] tracking-[-.045em] sm:text-6xl">Pengaturan Cookie</h1>
+  <p class="mt-5 max-w-2xl text-base leading-8 text-[var(--muted)]">
+    Halaman ini menjelaskan cookie yang digunakan pada situs ini dan bagaimana Anda dapat mengelolanya melalui peramban.
+  </p>
+
+  <div class="mt-12 space-y-10">
+    <section>
+      <h2 class="font-display text-3xl">Apa itu cookie?</h2>
+      <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+        Cookie adalah berkas teks kecil yang disimpan peramban Anda saat mengunjungi sebuah situs. Cookie membantu situs mengingat preferensi dan mengukur penggunaan, tetapi juga dapat digunakan untuk tujuan lain tergantung siapa yang memasangnya.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="font-display text-3xl">Cookie yang digunakan situs ini</h2>
+      <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+        Situs ini hanya menggunakan cookie untuk dua hal:
+      </p>
+      <ul class="mt-4 space-y-2 text-sm leading-7 text-[var(--muted)]">
+        <li class="flex gap-3"><span class="text-[var(--red)]">—</span><span><strong class="text-[var(--forest)]">Google Analytics</strong> — cookie analitik (misalnya <code class="rounded bg-[var(--forest)]/10 px-1.5 py-0.5 text-[.85em] text-[var(--forest)]">_ga</code>) untuk memahami bagaimana pengunjung menggunakan situs, seperti halaman yang dibuka dan lama sesi.</span></li>
+        <li class="flex gap-3"><span class="text-[var(--red)]">—</span><span><strong class="text-[var(--forest)]">Google Maps</strong> — peta interaktif pada halaman beranda; Google dapat menempatkan cookie dari pihaknya saat peta dimuat.</span></li>
+      </ul>
+      <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+        Situs ini tidak menempatkan cookie iklan atau cookie pelacakan lintas situs untuk keperluan periklanan.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="font-display text-3xl">Cara mengelola cookie</h2>
+      <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+        Situs ini bersifat statis dan tidak menampilkan banner persetujuan cookie. Pilihan Anda dikelola langsung melalui peramban:
+      </p>
+      <ul class="mt-4 space-y-2 text-sm leading-7 text-[var(--muted)]">
+        <li class="flex gap-3"><span class="text-[var(--red)]">—</span><span><strong class="text-[var(--forest)]">Chrome / Edge:</strong> menu Pengaturan → Privasi dan keamanan → Cookie situs.</span></li>
+        <li class="flex gap-3"><span class="text-[var(--red)]">—</span><span><strong class="text-[var(--forest)]">Firefox:</strong> menu Pengaturan → Privasi dan Keamanan → Cookie dan Data Situs.</span></li>
+        <li class="flex gap-3"><span class="text-[var(--red)]">—</span><span><strong class="text-[var(--forest)]">Safari:</strong> menu Pengaturan → Privasi → Kelola Data Situs Web.</span></li>
+        <li class="flex gap-3"><span class="text-[var(--red)]">—</span><span>Peramban seluler umumnya menyediakan opsi serupa di menu Pengaturan masing-masing.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="font-display text-3xl">Apa yang terjadi jika cookie dinonaktifkan?</h2>
+      <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+        Seluruh konten teks situs tetap dapat dibaca tanpa cookie. Yang terdampak hanyalah fitur yang bergantung pada layanan pihak ketiga, seperti statistik kunjungan dan peta interaktif. Menghapus cookie tidak menghapus riwayat kunjungan di peramban Anda.
+      </p>
+    </section>
+  </div>
+</LegalLayout>
