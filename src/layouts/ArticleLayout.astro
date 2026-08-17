@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '');
+const canonicalUrl = siteUrl ? new URL(Astro.url.pathname, `${siteUrl}/`).toString() : undefined;
+const ogImageUrl = siteUrl ? new URL('/images/monas-hero.jpg', `${siteUrl}/`).toString() : undefined;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  inLanguage: 'id-ID',
+  author: { '@type': 'Organization', name: 'MonasGuide' },
+  publisher: { '@type': 'Organization', name: 'MonasGuide' },
+  ...(canonicalUrl ? { mainEntityOfPage: canonicalUrl } : {})
+};
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#19382f" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(articleLd)}></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+    <script is:inline>
+      const w = /** @type {any} */ (window);
+      w.dataLayer = w.dataLayer || [];
+      function gtag(){ w.dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-HXM22WWPKP');
+    </script>
+  </head>
+  <body class="bg-[var(--cream)] text-[var(--forest)] antialiased">
+    <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[color:rgba(15,38,32,.88)] text-white backdrop-blur-xl">
+      <div class="section-shell flex h-20 items-center justify-between gap-6">
+        <a href="/" aria-label="Monas Jakarta — kembali ke beranda" class="shrink-0">
+          <img src="/logo.svg" alt="Logo Monas Jakarta" class="h-12 w-auto" width="340" height="96" />
+        </a>
+        <a href="/#awal" class="rounded-full border border-[var(--gold)]/60 px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-[var(--gold)] transition hover:bg-[var(--gold)] hover:text-[var(--forest)]">Kembali ke beranda</a>
+      </div>
+    </header>
+
+    <main>
+      <article class="section-shell max-w-3xl pt-32 pb-24 sm:pb-32">
+        <slot />
+      </article>
+    </main>
+
+    <SiteFooter />
+  </body>
+</html>

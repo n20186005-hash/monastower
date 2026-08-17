@@ -1,0 +1,53 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const title = 'Sejarah Monas: dari gagasan 1950-an hingga dibuka 1975';
+const description = 'Sejarah lengkap Monumen Nasional: usulan awal 1954, sayembara desain 1955, peletakan batu pertama 1961, hingga pembukaan publik 1975.';
+---
+
+<ArticleLayout title={title} description={description}>
+  <p class="eyebrow text-[var(--red)]">Sejarah</p>
+  <h1 class="mt-4 font-display text-4xl leading-[1.05] sm:text-5xl">Sebuah garis tegak yang menunggu hampir dua dasawarsa.</h1>
+  <p class="mt-6 text-lg leading-8 text-[var(--muted)]">
+    Monas tidak berdiri dari satu keputusan. Ia lahir dari dorongan bertahun-tahun para politisi, budayawan, dan masyarakat sipil yang merasa sebuah bangsa baru perlu menancapkan tanda vertikal bagi perjuangannya. Dari gagasan pertama hingga tugu dibuka untuk publik, perjalanannya memakan waktu hampir dua puluh tahun.
+  </p>
+
+  <h2 class="mt-14 font-display text-3xl">1950–1954: sebuah kota baru butuh simbol</h2>
+  <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+    Pada awal dekade kemerdekaan, usulan mendirikan monumen nasional muncul berulang kali dari kalangan parlemen dan masyarakat. Pada 1954, tokoh seperti Sarwoko Martokoesoemo mendorong pembentukan panitia agar gagasan itu tidak berhenti di wacana. Saat itu Jakarta belum memiliki penanda pusat yang bisa menyatukan memori kemerdekaan dengan wajah kota yang sedang dibangun kembali.
+  </p>
+
+  <h2 class="mt-14 font-display text-3xl">1955–1959: sayembara dan tangan Soekarno</h2>
+  <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+    Pemerintah kemudian menggelar sayembara desain; rancangan Frederich Silaban terpilih, tetapi pembangunan tidak langsung berjalan. Baru pada 1959 Presiden Soekarno membentuk Panitia Nasional Pembangunan Monumen Nasional dengan satu gagasan sentral: monumen sebagai "api yang tak kunjung padam". Desain akhir disusun oleh R.M. Soedarsono mengikuti arahan Soekarno, dengan Roosseno bertindak sebagai konsultan struktur.
+  </p>
+
+  <h2 class="mt-14 font-display text-3xl">17 Agustus 1961: patok pertama</h2>
+  <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+    Di hari ulang tahun kemerdekaan, Soekarno memasang patok pertama di Lapangan Merdeka. Momen ini disengaja: tanggal 17 Agustus dan gagasan kemerdekaan melekat pada setiap tahap proyek. Namun memasuki pertengahan 1960-an, kondisi politik dan ekonomi memperlambat pembangunan; pekerjaan sempat berjalan jauh dari rencana.
+  </p>
+
+  <h2 class="mt-14 font-display text-3xl">12 Juli 1975: dari patok ke cakrawala</h2>
+  <p class="mt-4 text-sm leading-7 text-[var(--muted)]">
+    Setelah pembangunan yang tersendat lebih dari satu dekade, Monas resmi dibuka pada masa pemerintahan Soeharto. Sejak saat itu, tugu setinggi 132 meter menjadi penanda yang tak terpisahkan dari Lapangan Merdeka—sekali meruncing ke langit, kini ia juga meruncing ke ingatan kota.
+  </p>
+
+  <div class="mt-14 grid gap-5 sm:grid-cols-2">
+    <div class="rounded-[2rem] border border-[var(--forest)]/10 bg-[var(--paper)] p-7">
+      <p class="text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Tokoh kunci</p>
+      <h3 class="mt-3 font-display text-2xl">Soekarno & R.M. Soedarsono</h3>
+      <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Soekarno memberi gagasan dan arahan politik; Soedarsono menerjemahkannya ke dalam desain yang berdiri hingga hari ini.</p>
+    </div>
+    <div class="rounded-[2rem] border border-[var(--forest)]/10 bg-[var(--paper)] p-7">
+      <p class="text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Tokoh kunci</p>
+      <h3 class="mt-3 font-display text-2xl">Silaban & Roosseno</h3>
+      <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Silaban memenangi sayembara awal; Roosseno memastikan struktur obelisk dan cawan dapat berdiri kokoh di tanah Lapangan Merdeka.</p>
+    </div>
+  </div>
+
+  <div class="mt-10 rounded-2xl border border-[var(--forest)]/10 bg-[var(--paper)] p-6 text-xs leading-6 text-[var(--muted)]">
+    <strong class="text-[var(--forest)]">Catatan sumber:</strong> ringkasan ini disusun dari sumber terbuka (lihat bagian Sumber pada beranda). Tahun dan tokoh dapat diverifikasi lebih lanjut pada arsip media nasional dan kanal resmi pemerintahan.
+  </div>
+
+  <p class="mt-10"><a href="/" class="inline-flex items-center gap-2 text-sm font-bold text-[var(--red)] transition hover:gap-3">← Kembali ke beranda</a></p>
+</ArticleLayout>

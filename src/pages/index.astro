@@ -105,6 +105,18 @@ const faqs = [
   {
     q: 'Apakah tersedia toilet dan fasilitas penunjang lain di sekitar Monas?',
     a: 'Ya. Toilet umum tersedia di kawasan taman, sebagian berbayar kecil. Untuk makan, minimarket, ATM, penginapan, SPBU, hingga pengisian daya kendaraan listrik, berbagai pilihan tersedia di sekitar Gambir dan Thamrin. Ketersediaan bervariasi, jadi periksa kanal resmi atau aplikasi terkait sebelum berangkat.'
+  },
+  {
+    q: 'Mengapa puncak Monas berupa api berlapis emas?',
+    a: 'Lidah api melambangkan semangat kemerdekaan yang diharapkan tidak pernah padam. Api dibuat dari perunggu berlapis emas dan bersifat simbolis—tidak benar-benar menyala, tetapi pada malam hari pencahayaan membuatnya tampak berkobar.'
+  },
+  {
+    q: 'Berapa tinggi pelataran puncak Monas dan bagaimana cara ke sana?',
+    a: 'Pelataran puncak berada pada ketinggian sekitar 115 meter dan dicapai dengan lift dari dasar. Akses puncak menggunakan tiket terpisah dari museum, dan antrean lebih panjang pada akhir pekan serta hari libur.'
+  },
+  {
+    q: 'Apa makna bentuk dasar Monas yang menyerupai cawan dan obelisk?',
+    a: 'Bentuk tersebut mengikuti kosmologi lingga–yoni yang akrab dalam tradisi Nusantara: cawan sebagai wadah (yoni) dan obelisk sebagai daya hidup (lingga), dengan lidah api di puncak sebagai semangat kebangsaan.'
   }
 ];
 
@@ -155,8 +167,9 @@ const faqLd = {
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      const w = /** @type {any} */ (window);
+      w.dataLayer = w.dataLayer || [];
+      function gtag(){ w.dataLayer.push(arguments); }
       gtag('js', new Date());
       gtag('config', 'G-HXM22WWPKP');
     </script>
@@ -167,12 +180,13 @@ const faqLd = {
         <a href="#awal" aria-label="Monas Jakarta — kembali ke awal" class="shrink-0">
           <img src="/logo.svg" alt="Logo Monas Jakarta" class="h-12 w-auto" width="340" height="96" />
         </a>
-        <nav aria-label="Navigasi utama" class="hidden items-center gap-6 text-sm font-semibold md:flex">
-          <a class="transition hover:text-[var(--gold)]" href="#rencana">Kunjungan</a>
-          <a class="transition hover:text-[var(--gold)]" href="#transportasi">Transportasi</a>
-          <a class="transition hover:text-[var(--gold)]" href="#fasilitas">Fasilitas</a>
-          <a class="transition hover:text-[var(--gold)]" href="#sekitar">Sekitar Monas</a>
-          <a class="transition hover:text-[var(--gold)]" href="#faq">FAQ</a>
+        <nav aria-label="Navigasi utama" class="hidden items-center gap-5 text-sm font-semibold md:flex">
+          <a class="scroll-link transition hover:text-[var(--gold)]" href="#kisah"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">01</span>Kisah</a>
+          <a class="scroll-link transition hover:text-[var(--gold)]" href="#rencana"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">02</span>Kunjungan</a>
+          <a class="scroll-link transition hover:text-[var(--gold)]" href="#transportasi"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">03</span>Transportasi</a>
+          <a class="scroll-link transition hover:text-[var(--gold)]" href="#fasilitas"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">04</span>Fasilitas</a>
+          <a class="scroll-link transition hover:text-[var(--gold)]" href="#sekitar"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">05</span>Sekitar</a>
+          <a class="scroll-link transition hover:text-[var(--gold)]" href="#faq"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">06</span>FAQ</a>
         </nav>
         <a href="#peta" class="rounded-full border border-[var(--gold)]/60 px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-[var(--gold)] transition hover:bg-[var(--gold)] hover:text-[var(--forest)]">Buka peta</a>
       </div>
@@ -180,7 +194,7 @@ const faqLd = {
 
     <main id="awal">
       <section class="relative min-h-[760px] overflow-hidden bg-[var(--forest)] text-white lg:min-h-[860px]">
-        <img src="/images/monas-hero.jpg" alt="Monumen Nasional menjulang di langit Jakarta" class="absolute inset-0 h-full w-full object-cover object-center" width="1280" height="853" fetchpriority="high" />
+        <img src="/images/monas-hero.jpg" alt="Monumen Nasional menjulang di langit Jakarta" class="absolute inset-0 h-full w-full object-cover object-center" width="1280" height="853" loading="eager" />
         <div class="hero-mask absolute inset-0"></div>
         <div class="section-shell relative flex min-h-[760px] items-end pb-20 pt-36 lg:min-h-[860px] lg:pb-28">
           <div class="grid w-full items-end gap-12 lg:grid-cols-[1.35fr_.65fr]">
@@ -227,18 +241,56 @@ const faqLd = {
             <h2 class="display-title mt-4">Sebuah garis tegak untuk mengingat perjuangan.</h2>
             <div class="monument-rule mt-8"></div>
           </div>
-          <div class="grid gap-8 sm:grid-cols-2">
-            <p class="text-lg leading-8 text-[var(--muted)] sm:col-span-2">
-              Pembangunan Monas dimulai pada 17 Agustus 1961 dan monumen dibuka untuk umum pada 12 Juli 1975. Bentuk obelisknya menjulang 132 meter, berpuncak pada nyala api berlapis emas yang menjadi lambang semangat kemerdekaan Indonesia.
+          <div>
+            <p class="text-lg leading-8 text-[var(--muted)]">
+              Monas tidak lahir dari satu keputusan, melainkan dari dorongan bertahun-tahun: sebuah bangsa baru ingin menancapkan garis vertikal untuk perjuangannya. Dari gagasan pada 1950-an hingga tugu resmi dibuka pada 1975, perjalanannya memakan waktu hampir dua dasawarsa.
             </p>
-            <div class="rounded-[1.75rem] border border-[var(--forest)]/10 bg-[var(--cream)] p-7">
-              <p class="font-display text-5xl text-[var(--red)]">132 m</p>
-              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">tinggi Monas—proporsi vertikal yang menjadi titik orientasi di pusat Jakarta.</p>
+
+            <ol class="mt-12 space-y-10 border-l border-[var(--forest)]/15 pl-8">
+              <li class="relative">
+                <span class="absolute -left-[2.5rem] top-1.5 size-4 rounded-full border-2 border-[var(--gold)] bg-[var(--forest)]"></span>
+                <p class="text-xs font-black uppercase tracking-[.2em] text-[var(--red)]">1950–1954 · Gagasan awal</p>
+                <h3 class="mt-2 font-display text-2xl">Sebuah kota baru butuh simbol</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--muted)]">Usulan monumen nasional muncul dari kalangan politisi dan masyarakat sipil di awal dekade kemerdekaan. Pada 1954, tokoh seperti Sarwoko Martokoesoemo mendorong pembentukan panitia agar gagasan itu ditindaklanjuti pemerintah.</p>
+              </li>
+              <li class="relative">
+                <span class="absolute -left-[2.5rem] top-1.5 size-4 rounded-full border-2 border-[var(--gold)] bg-[var(--forest)]"></span>
+                <p class="text-xs font-black uppercase tracking-[.2em] text-[var(--red)]">1955 · Sayembara desain</p>
+                <h3 class="mt-2 font-display text-2xl">Silaban menang, namun belum terbangun</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--muted)]">Pemerintah menggelar sayembara desain; rancangan Frederich Silaban terpilih, tetapi pembangunan tidak langsung berjalan. Baru pada 1959 Presiden Soekarno membentuk Panitia Nasional Pembangunan Monumen Nasional dengan gagasan sentral: monumen sebagai "api yang tak kunjung padam".</p>
+              </li>
+              <li class="relative">
+                <span class="absolute -left-[2.5rem] top-1.5 size-4 rounded-full border-2 border-[var(--gold)] bg-[var(--forest)]"></span>
+                <p class="text-xs font-black uppercase tracking-[.2em] text-[var(--red)]">17 Agustus 1961 · Peletakan batu pertama</p>
+                <h3 class="mt-2 font-display text-2xl">Patok pertama di hari Proklamasi</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--muted)]">Di hari ulang tahun kemerdekaan, Soekarno memasang patok pertama. Desain final digarap R.M. Soedarsono mengikuti arahan Soekarno, dengan Roosseno sebagai konsultan struktur. Memasuki pertengahan 1960-an, kondisi politik dan ekonomi memperlambat pembangunan.</p>
+              </li>
+              <li class="relative">
+                <span class="absolute -left-[2.5rem] top-1.5 size-4 rounded-full border-2 border-[var(--gold)] bg-[var(--forest)]"></span>
+                <p class="text-xs font-black uppercase tracking-[.2em] text-[var(--red)]">12 Juli 1975 · Dibuka untuk publik</p>
+                <h3 class="mt-2 font-display text-2xl">Dari patok ke cakrawala</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--muted)]">Setelah pembangunan yang sempat tersendat lebih dari satu dekade, Monas resmi dibuka pada masa pemerintahan Soeharto. Sejak itu tugu setinggi 132 meter menjadi penanda yang tak terpisahkan dari Lapangan Merdeka.</p>
+              </li>
+            </ol>
+
+            <div class="mt-12 grid gap-4 sm:grid-cols-3">
+              <div class="rounded-[1.75rem] border border-[var(--forest)]/10 bg-[var(--cream)] p-6">
+                <p class="font-display text-4xl text-[var(--red)]">132 m</p>
+                <p class="mt-2 text-xs leading-5 text-[var(--muted)]">tinggi monumen—titik orientasi di pusat Jakarta.</p>
+              </div>
+              <div class="rounded-[1.75rem] border border-[var(--forest)]/10 bg-[var(--forest)] p-6 text-white">
+                <p class="font-display text-4xl text-[var(--gold)]">1961–1975</p>
+                <p class="mt-2 text-xs leading-5 text-white/65">masa pembangunan dari patok hingga dibuka.</p>
+              </div>
+              <div class="rounded-[1.75rem] border border-[var(--forest)]/10 bg-[var(--cream)] p-6">
+                <p class="font-display text-4xl text-[var(--red)]">14,5 m</p>
+                <p class="mt-2 text-xs leading-5 text-[var(--muted)]">lidah api di puncak obelisk.</p>
+              </div>
             </div>
-            <div class="rounded-[1.75rem] border border-[var(--forest)]/10 bg-[var(--forest)] p-7 text-white">
-              <p class="font-display text-5xl text-[var(--gold)]">1975</p>
-              <p class="mt-3 text-sm leading-6 text-white/65">tahun Monas resmi dibuka untuk publik setelah masa pembangunan panjang.</p>
-            </div>
+
+            <a href="/sejarah" class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--red)] transition hover:gap-3">
+              Baca sejarah lengkap <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
       </section>
@@ -248,6 +300,117 @@ const faqLd = {
           <div><span class="text-xs uppercase tracking-[.2em] text-white/45">Lokasi</span><p class="mt-1 font-semibold">Gambir, Jakarta Pusat</p></div>
           <div><span class="text-xs uppercase tracking-[.2em] text-white/45">Koordinat</span><p class="mt-1 font-semibold">−6.175389, 106.827139</p></div>
           <div><span class="text-xs uppercase tracking-[.2em] text-white/45">Akses utama</span><p class="mt-1 font-semibold">TransJakarta · Gambir · IRTI</p></div>
+        </div>
+      </section>
+
+      <section id="arsitektur" class="py-24 sm:py-32">
+        <div class="section-shell">
+          <div class="grid items-end gap-8 lg:grid-cols-[1fr_.8fr]">
+            <div>
+              <p class="eyebrow">Arsitektur & simbol</p>
+              <h2 class="display-title mt-4 max-w-3xl">Satu garis, tiga lapis makna: yoni, lingga, dan api.</h2>
+            </div>
+            <p class="max-w-xl text-base leading-7 text-[var(--muted)] lg:justify-self-end">Monas membaca seperti candi di kota modern: cawan di dasar, obelisk di tengah, dan api di puncak. Ketiganya mengikuti kosmologi lingga–yoni yang akrab dalam tradisi Nusantara—simbol kesuburan, keseimbangan, dan semangat yang terus menyala.</p>
+          </div>
+
+          <div class="mt-14 grid gap-5 lg:grid-cols-3">
+            <article class="relative overflow-hidden rounded-[2rem] bg-[var(--forest)] p-8 text-white">
+              <p class="font-display text-7xl leading-none text-[var(--gold)]/20">01</p>
+              <h3 class="mt-4 font-display text-3xl">Cawan & pelataran</h3>
+              <p class="mt-4 text-sm leading-7 text-white/70">Bentuk cawan di dasar dimaknai sebagai <em>yoni</em>—wadah kehidupan dan kesuburan dalam tradisi Hindu-Buddha Nusantara. Di dalamnya kini berdiri Museum Sejarah Nasional, seolah sejarah menjadi fondasi dari semangat yang menjulang di atasnya.</p>
+              <p class="mt-6 text-xs leading-6 text-white/55">Dasar · museum & Ruang Kemerdekaan</p>
+            </article>
+            <article class="relative overflow-hidden rounded-[2rem] bg-[var(--cream)] p-8">
+              <p class="font-display text-7xl leading-none text-[var(--red)]/15">02</p>
+              <h3 class="mt-4 font-display text-3xl">Obelisk setinggi 117,7 m</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Poros utama dimaknai sebagai <em>lingga</em>—lambang daya hidup dan semangat kebangsaan. Obelisk dilapisi marmer dan dihiasi relief sejarah; kehadirannya menjadikan keseluruhan Monas menjulang 132 meter.</p>
+              <p class="mt-6 text-xs leading-6 text-[var(--muted)]">Tengah · relung relief & lift</p>
+            </article>
+            <article class="relative overflow-hidden rounded-[2rem] bg-[var(--forest)] p-8 text-white">
+              <p class="font-display text-7xl leading-none text-[var(--gold)]/20">03</p>
+              <h3 class="mt-4 font-display text-3xl">Lidah api berlapis emas</h3>
+              <p class="mt-4 text-sm leading-7 text-white/70">Tingginya sekitar 14,5 meter, dibuat dari perunggu dan dilapisi emas. Api ini mengingatkan pada proklamasi—semangat yang diharapkan tak pernah padam. Berat emas sering disebut-sebut puluhan kilogram; angka pastinya perlu diverifikasi dari sumber resmi.</p>
+              <p class="mt-6 text-xs leading-6 text-white/55">Puncak · pelataran observasi 115 m</p>
+            </article>
+          </div>
+
+          <div class="mt-10 grid gap-4 sm:grid-cols-4">
+            <div class="rounded-2xl border border-[var(--forest)]/10 bg-white/50 p-5"><p class="font-display text-3xl text-[var(--red)]">115 m</p><p class="mt-1.5 text-xs leading-5 text-[var(--muted)]">pelataran puncak</p></div>
+            <div class="rounded-2xl border border-[var(--forest)]/10 bg-white/50 p-5"><p class="font-display text-3xl text-[var(--red)]">14,5 m</p><p class="mt-1.5 text-xs leading-5 text-[var(--muted)]">lidah api</p></div>
+            <div class="rounded-2xl border border-[var(--forest)]/10 bg-white/50 p-5"><p class="font-display text-3xl text-[var(--red)]">117,7 m</p><p class="mt-1.5 text-xs leading-5 text-[var(--muted)]">obelisk marmer</p></div>
+            <div class="rounded-2xl border border-[var(--forest)]/10 bg-white/50 p-5"><p class="font-display text-3xl text-[var(--red)]">±38 kg</p><p class="mt-1.5 text-xs leading-5 text-[var(--muted)]">lapisan emas · perlu verifikasi</p></div>
+          </div>
+
+          <a href="/arsitektur" class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--red)] transition hover:gap-3">Simbol & material selengkapnya <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section id="di-dalam" class="bg-[var(--forest)] py-24 text-white sm:py-32">
+        <div class="section-shell">
+          <div class="grid items-end gap-8 lg:grid-cols-[1fr_.8fr]">
+            <div>
+              <p class="eyebrow text-[var(--gold)]">Di dalam Monas</p>
+              <h2 class="display-title mt-4 max-w-3xl">Satu lift, tiga lapis cerita: museum, ruang kemerdekaan, dan cakrawala.</h2>
+            </div>
+            <p class="max-w-xl text-base leading-7 text-white/60 lg:justify-self-end">Tiket masuk memberi akses ke lebih dari sekadar pemandangan: di dasar Anda membaca sejarah Nusantara, lalu naik ke ruang hening proklamasi, dan akhirnya ke pelataran puncak yang membuka seluruh Jakarta.</p>
+          </div>
+
+          <div class="mt-14 grid gap-5 md:grid-cols-3">
+            <article class="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--gold)] text-sm font-black text-[var(--forest)]">01</span>
+              <h3 class="mt-6 font-display text-2xl">Museum Sejarah Nasional</h3>
+              <p class="mt-3 text-sm leading-6 text-white/65">Di dasar cawan, museum memajang diorama dan koleksi yang menelusuri Nusantara dari masa prasejarah hingga Proklamasi 1945. Di sinilah sebagian besar pengunjung menghabiskan waktu sebelum naik.</p>
+              <p class="mt-5 text-xs leading-5 text-white/45">Ruang luas · koleksi & diorama sejarah</p>
+            </article>
+            <article class="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--red)] text-sm font-black text-white">02</span>
+              <h3 class="mt-6 font-display text-2xl">Ruang Kemerdekaan</h3>
+              <p class="mt-3 text-sm leading-6 text-white/65">Ruang hening bebas kolom di dalam cawan. Di sini tersimpan naskah proklamasi, bendera pusaka, lambang Garuda, dan relief perjuangan—tempat untuk berhenti sejenak di tengah keramaian kota.</p>
+              <p class="mt-5 text-xs leading-5 text-white/45">Ruang bebas kolom · suasana tenang</p>
+            </article>
+            <article class="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--gold)] text-sm font-black text-[var(--forest)]">03</span>
+              <h3 class="mt-6 font-display text-2xl">Pelataran Puncak · 115 m</h3>
+              <p class="mt-3 text-sm leading-6 text-white/65">Lift mengantar ke pelataran observasi setinggi sekitar 115 meter. Dari sini Lapangan Merdeka, Istana Merdeka, Istiqlal, hingga deretan gedung di sepanjang Thamrin tampak seperti peta hidup Jakarta.</p>
+              <p class="mt-5 text-xs leading-5 text-white/45">Lift · antrean & tiket terpisah</p>
+            </article>
+          </div>
+
+          <p class="mt-8 max-w-3xl text-xs leading-6 text-white/45">Urutan yang lazim: mulai dari museum, lanjut ke Ruang Kemerdekaan, lalu naik ke pelataran puncak. Ruang Kemerdekaan bersifat tenang dan umumnya tidak ramai seperti area museum.</p>
+        </div>
+      </section>
+
+      <section id="legenda" class="bg-[var(--paper)] py-24 sm:py-32">
+        <div class="section-shell">
+          <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p class="eyebrow">Kisah & legenda</p>
+              <h2 class="display-title mt-4 max-w-3xl">Antara fakta dan cerita yang beredar di kota.</h2>
+            </div>
+            <p class="max-w-md text-sm leading-7 text-[var(--muted)]">Sebagian kisah dapat diverifikasi dari sumber sejarah; sebagian lain adalah cerita rakyat kota. Kami menandai keduanya dengan jujur.</p>
+          </div>
+
+          <div class="mt-14 grid gap-5 lg:grid-cols-2">
+            <article class="rounded-[2rem] bg-[var(--cream)] p-8">
+              <p class="eyebrow text-[var(--red)]">Cerita yang paling sering diceritakan</p>
+              <h3 class="mt-4 font-display text-3xl">"Obor semangat" gagasan Soekarno</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Dikisahkan, ketika menggagas Monas, Soekarno tidak ingin monumen yang sekadar tinggi. Yang ia inginkan adalah obor semangat—api yang menyala di jantung kota sebagai pengingat bahwa kemerdekaan harus dijaga. Dari gagasan inilah lidah api di puncak lahir, bukan sekadar hiasan arsitektur.</p>
+              <p class="mt-5 text-xs leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Catatan:</strong> gagasan "api yang tak kunjung padam" tercatat dalam sejarah pembentukan panitia 1959; detail dialog di dalamnya berkembang sebagai cerita populer.</p>
+            </article>
+            <article class="rounded-[2rem] bg-[var(--cream)] p-8">
+              <p class="eyebrow text-[var(--red)]">Mitra kota yang beredar</p>
+              <h3 class="mt-4 font-display text-3xl">Berapa emas di lidah api?</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Cerita yang beredar selalu membuat kagum: lidah api Monas dikatakan "bernilai miliaran rupiah". Faktanya, lidah api terbuat dari perunggu yang dilapisi emas. Berat emas sering dikutip sekitar 35–38 kilogram, tetapi angka ini perlu diverifikasi ke sumber resmi. Yang pasti, nilainya bagi Indonesia lebih bersifat simbolis daripada material.</p>
+              <p class="mt-5 text-xs leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Catatan:</strong> monumen tidak dinyalakan; "api" bersifat simbolis dan hanya disimulasikan dengan pencahayaan pada malam hari.</p>
+            </article>
+          </div>
+
+          <div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <p class="rounded-2xl border border-[var(--forest)]/10 bg-white/50 p-5 text-sm leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">132 m itu gabungan:</strong> obelisk 117,7 m + lidah api 14,5 m.</p>
+            <p class="rounded-2xl border border-[var(--forest)]/10 bg-white/50 p-5 text-sm leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Upacara 17 Agustus:</strong> setiap Hari Kemerdekaan, upacara bendera digelar di depan Monas.</p>
+            <p class="rounded-2xl border border-[var(--forest)]/10 bg-white/50 p-5 text-sm leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Air mancur menari:</strong> air mancur kawasan ini kerap tampil dengan iringan musik pada akhir pekan dan malam hari.</p>
+            <p class="rounded-2xl border border-[var(--forest)]/10 bg-white/50 p-5 text-sm leading-6 text-[var(--muted)]"><strong class="text-[var(--forest)]">Taman tematik:</strong> di sekitar tugu terdapat taman rusa dan area bermain yang populer untuk keluarga.</p>
+          </div>
         </div>
       </section>
 
@@ -292,6 +455,7 @@ const faqLd = {
                 <p class="eyebrow text-[var(--gold)]">Tiket & biaya</p>
                 <h3 class="mt-4 font-display text-4xl leading-tight sm:text-5xl">Taman gratis. Museum dan puncak bertiket.</h3>
                 <p class="mt-5 max-w-lg text-sm leading-7 text-white/65">Tarif di bawah mengikuti informasi publik Monas. Kartu pembayaran, kategori pengunjung, atau tarif acara khusus dapat berubah—cek kanal resmi sebelum datang.</p>
+                <a href="/tiket" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[var(--gold)] transition hover:gap-3">Detail tiket & jam buka <span aria-hidden="true">↗</span></a>
               </div>
               <div class="grid border-t border-white/10 sm:grid-cols-2 lg:border-l lg:border-t-0">
                 <div class="p-8 sm:p-10">
@@ -369,6 +533,7 @@ const faqLd = {
               <p class="mt-4 text-sm leading-7 text-white/70">Stasiun MRT Monas adalah bagian Fase 2A MRT Jakarta dan masih dalam pembangunan. Jangan merencanakan perjalanan dengan asumsi MRT sudah dapat berhenti langsung di Monas.</p>
             </article>
           </div>
+          <a href="/transportasi" class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--gold)] transition hover:gap-3">Perbandingan moda selengkapnya <span aria-hidden="true">↗</span></a>
         </div>
       </section>
 
@@ -512,7 +677,79 @@ const faqLd = {
               </article>
             </div>
             <p class="mt-6 text-xs leading-6 text-[var(--muted)]">Juga di sekitar: Galeri Nasional Indonesia di sisi timur kawasan, dekat koridor Gambir dan Medan Merdeka Timur.</p>
+            <a href="/sekitar" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[var(--red)] transition hover:gap-3">Panduan kawasan sekitar <span aria-hidden="true">↗</span></a>
           </div>
+        </div>
+      </section>
+
+      <section id="galeri" class="bg-[var(--paper)] py-24 sm:py-32">
+        <div class="section-shell">
+          <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p class="eyebrow">Galeri</p>
+              <h2 class="display-title mt-4 max-w-2xl">Monas dalam beberapa bingkai.</h2>
+            </div>
+            <p class="max-w-md text-sm leading-7 text-[var(--muted)]">Foto disimpan lokal pada situs ini; hak cipta tetap milik fotografer aslinya. Klik gambar untuk memperbesar.</p>
+          </div>
+
+          <div class="mt-14 grid gap-5 lg:grid-cols-[1.35fr_.65fr]">
+            <figure class="group relative overflow-hidden rounded-[2.2rem] bg-[var(--forest)]">
+              <img src="/images/monas-hero.jpg" alt="Monumen Nasional menjulang di Lapangan Merdeka" class="gallery-img aspect-[4/3] h-full w-full cursor-zoom-in object-cover transition duration-500 group-hover:scale-[1.02]" width="1280" height="853" loading="lazy" data-caption="Monumen Nasional menjulang di Lapangan Merdeka — foto: Ramayoni / Wikimedia Commons" />
+            </figure>
+            <div class="grid gap-5">
+              <figure class="group relative overflow-hidden rounded-[2.2rem] bg-[var(--forest)]">
+                <img src="/images/monas-relief.jpg" alt="Relief sejarah pada dasar Monas" class="gallery-img aspect-[16/10] w-full cursor-zoom-in object-cover transition duration-500 group-hover:scale-[1.02]" width="1280" height="800" loading="lazy" data-caption="Relief sejarah pada dasar Monas — foto: Christophe95 / Wikimedia Commons" />
+              </figure>
+              <figure class="group relative overflow-hidden rounded-[2.2rem] bg-[var(--forest)]">
+                <img src="/images/monas-view.jpg" alt="Kawasan pusat Jakarta dilihat dari dekat Monas" class="gallery-img aspect-[16/10] w-full cursor-zoom-in object-cover transition duration-500 group-hover:scale-[1.02]" width="1280" height="800" loading="lazy" data-caption="Pusat Jakarta dari kawasan Monas — foto: Gunawan Kartapranata / Wikimedia Commons" />
+              </figure>
+            </div>
+          </div>
+
+          <p class="mt-6 text-xs leading-6 text-[var(--muted)]">Daftar atribusi foto tersedia pada bagian Sumber di bawah.</p>
+        </div>
+      </section>
+
+      <section id="sumber" class="py-24 sm:py-32">
+        <div class="section-shell grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-20">
+          <div>
+            <p class="eyebrow">Sumber & integritas</p>
+            <h2 class="display-title mt-4">Informasi yang bisa dipertanggungjawabkan.</h2>
+            <p class="mt-6 text-sm leading-7 text-[var(--muted)]">MonasGuide adalah situs nonkomersial yang disusun secara independen. Kami tidak dikelola oleh, tidak mewakili, dan tidak menerima komisi dari UPK Monas, Pemerintah Provinsi DKI Jakarta, atau penyedia jasa mana pun. Informasi dikumpulkan dari sumber terbuka, ditulis ulang dengan gaya netral, dan diperbarui bila memungkinkan.</p>
+            <p class="mt-4 text-sm leading-7 text-[var(--muted)]">Menemukan kesalahan? Tarif, jam, dan ketentuan dapat berubah. Sampaikan koreksi melalui kanal yang tercantum pada halaman <a class="font-semibold text-[var(--red)] underline underline-offset-4" href="/kebijakan-privasi">Kebijakan Privasi</a>.</p>
+          </div>
+          <ol class="space-y-3">
+            <li>
+              <a href="https://www.kompas.com/stori/read/2026/06/23/173133979/sejarah-monas-simbol-kemerdekaan-yang-menjulang-di-jantung-jakarta" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 rounded-2xl border border-[var(--forest)]/10 bg-white/50 px-6 py-4 transition hover:-translate-y-0.5 hover:shadow-md">
+                <span><span class="block text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Media nasional · sejarah</span><span class="mt-1 block font-display text-xl">Kompas.com — Sejarah Monas</span></span>
+                <span aria-hidden="true" class="text-[var(--gold)] transition group-hover:translate-x-1">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.jakarta.go.id/" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 rounded-2xl border border-[var(--forest)]/10 bg-white/50 px-6 py-4 transition hover:-translate-y-0.5 hover:shadow-md">
+                <span><span class="block text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Pemerintah daerah · resmi</span><span class="mt-1 block font-display text-xl">Pemerintah Provinsi DKI Jakarta</span></span>
+                <span aria-hidden="true" class="text-[var(--gold)] transition group-hover:translate-x-1">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.indonesia.go.id/" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 rounded-2xl border border-[var(--forest)]/10 bg-white/50 px-6 py-4 transition hover:-translate-y-0.5 hover:shadow-md">
+                <span><span class="block text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Portal resmi · pemerintah</span><span class="mt-1 block font-display text-xl">Indonesia.go.id</span></span>
+                <span aria-hidden="true" class="text-[var(--gold)] transition group-hover:translate-x-1">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 rounded-2xl border border-[var(--forest)]/10 bg-white/50 px-6 py-4 transition hover:-translate-y-0.5 hover:shadow-md">
+                <span><span class="block text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Dokumentasi · foto</span><span class="mt-1 block font-display text-xl">Wikimedia Commons</span></span>
+                <span aria-hidden="true" class="text-[var(--gold)] transition group-hover:translate-x-1">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://maps.app.goo.gl/FG34Yr9Wqe4JmQ7FA" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 rounded-2xl border border-[var(--forest)]/10 bg-white/50 px-6 py-4 transition hover:-translate-y-0.5 hover:shadow-md">
+                <span><span class="block text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Navigasi · lokasi</span><span class="mt-1 block font-display text-xl">Google Maps — Monas</span></span>
+                <span aria-hidden="true" class="text-[var(--gold)] transition group-hover:translate-x-1">↗</span>
+              </a>
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -546,6 +783,51 @@ const faqLd = {
         </div>
       </section>
     </main>
+
+    <script is:inline>
+      // @ts-nocheck
+      (function () {
+        var links = Array.prototype.slice.call(document.querySelectorAll('a.scroll-link'));
+        var map = links
+          .map(function (a) { return { link: a, target: document.querySelector(a.getAttribute('href')) }; })
+          .filter(function (x) { return x.target; });
+        var onScroll = function () {
+          var pos = window.scrollY + 140;
+          var current = map.length ? map[0].target : null;
+          map.forEach(function (item) { if (item.target.offsetTop <= pos) current = item.target; });
+          map.forEach(function (item) { item.link.classList.toggle('nav-active', item.target === current); });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        var gallery = document.getElementById('galeri');
+        if (gallery) {
+          var imgs = gallery.querySelectorAll('.gallery-img');
+          var overlay = document.createElement('div');
+          overlay.className = 'lightbox';
+          var frame = document.createElement('figure');
+          var cap = document.createElement('figcaption');
+          frame.appendChild(cap);
+          overlay.appendChild(frame);
+          document.body.appendChild(overlay);
+          imgs.forEach(function (el) {
+            var img = /** @type {HTMLImageElement} */ (el);
+            img.addEventListener('click', function () {
+              var old = frame.querySelector('img');
+              if (old) old.remove();
+              var big = document.createElement('img');
+              big.src = img.currentSrc || img.src;
+              big.alt = img.alt;
+              frame.insertBefore(big, cap);
+              cap.textContent = img.getAttribute('data-caption') || '';
+              overlay.classList.add('open');
+            });
+          });
+          overlay.addEventListener('click', function () { overlay.classList.remove('open'); });
+          document.addEventListener('keydown', function (e) { if (e.key === 'Escape') overlay.classList.remove('open'); });
+        }
+      })();
+    </script>
 
     <SiteFooter />
   </body>

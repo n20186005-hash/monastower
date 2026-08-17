@@ -1,0 +1,61 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+
+const title = 'Tiket & jam buka Monas: harga, jadwal, dan tips antre';
+const description = 'Info tiket Monas: harga pelataran puncak dan museum, jam kawasan, jadwal tutup Senin, serta tips menghindari antrean lift.';
+---
+
+<ArticleLayout title={title} description={description}>
+  <p class="eyebrow text-[var(--red)]">Tiket & jam buka</p>
+  <h1 class="mt-4 font-display text-4xl leading-[1.05] sm:text-5xl">Taman gratis. Museum dan puncak bertiket.</h1>
+  <p class="mt-6 text-lg leading-8 text-[var(--muted)]">
+    Kawasan taman, museum, dan pelataran puncak tidak selalu memiliki jam layanan yang sama. Harga dan jadwal berikut mengikuti informasi publik; selalu cek kanal resmi pada hari kunjungan karena ketentuan dapat berubah.
+  </p>
+
+  <h2 class="mt-14 font-display text-3xl">Jam kawasan</h2>
+  <div class="mt-5 overflow-hidden rounded-2xl border border-[var(--forest)]/10 bg-[var(--paper)]">
+    <div class="grid grid-cols-2 gap-px bg-[var(--forest)]/10">
+      <div class="bg-[var(--paper)] p-5"><p class="text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Hari</p></div>
+      <div class="bg-[var(--paper)] p-5"><p class="text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Jam</p></div>
+      <div class="bg-[var(--paper)] p-5 text-sm text-[var(--muted)]">Selasa–Minggu</div>
+      <div class="bg-[var(--paper)] p-5 text-sm font-semibold">06.00–22.00 WIB</div>
+      <div class="bg-[var(--paper)] p-5 text-sm text-[var(--muted)]">Senin</div>
+      <div class="bg-[var(--paper)] p-5 text-sm font-semibold">Tutup</div>
+      <div class="bg-[var(--paper)] p-5 text-sm text-[var(--muted)]">Tugu, museum & puncak</div>
+      <div class="bg-[var(--paper)] p-5 text-sm font-semibold">Jam lebih singkat dari kawasan</div>
+    </div>
+  </div>
+  <p class="mt-4 text-xs leading-6 text-[var(--muted)]">Jam tugu dan pelataran puncak umumnya berakhir lebih awal daripada jam kawasan. Pada hari libur nasional, jadwal dapat diperpanjang atau disesuaikan—periksa pengumuman resmi.</p>
+
+  <h2 class="mt-14 font-display text-3xl">Tarif tiket</h2>
+  <div class="mt-5 overflow-hidden rounded-2xl border border-[var(--forest)]/10 bg-[var(--paper)]">
+    <div class="grid gap-px bg-[var(--forest)]/10 sm:grid-cols-2">
+      <div class="bg-[var(--paper)] p-6">
+        <p class="text-xs font-bold uppercase tracking-[.2em] text-white/70">Pelataran puncak</p>
+        <p class="mt-3 font-display text-4xl text-[var(--red)]">Rp24.000</p>
+        <p class="mt-1 text-sm text-[var(--muted)]">dewasa</p>
+        <div class="mt-5 space-y-2 border-t border-[var(--forest)]/10 pt-4 text-sm text-[var(--muted)]"><p>Mahasiswa · Rp13.000</p><p>Anak/pelajar · Rp6.000</p></div>
+      </div>
+      <div class="bg-[var(--paper)] p-6">
+        <p class="text-xs font-bold uppercase tracking-[.2em] text-white/70">Museum / cawan</p>
+        <p class="mt-3 font-display text-4xl text-[var(--red)]">Rp8.000</p>
+        <p class="mt-1 text-sm text-[var(--muted)]">dewasa</p>
+        <div class="mt-5 space-y-2 border-t border-[var(--forest)]/10 pt-4 text-sm text-[var(--muted)]"><p>Mahasiswa · Rp5.000</p><p>Anak/pelajar · Rp3.000</p></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-14 font-display text-3xl">Tips menghindari antrean</h2>
+  <ul class="mt-5 space-y-3 text-sm leading-7 text-[var(--muted)]">
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">1</span><span>Antrean lift ke pelataran puncak lebih panjang pada akhir pekan dan hari libur; datang pada pagi hari bila ingin memaksimalkan waktu.</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">2</span><span>Tiket puncak dan museum bersifat terpisah; putuskan sejak awal agar tidak mengantre dua kali.</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">3</span><span>Bawa uang tunai kecil untuk tiket dan kebutuhan harian; siapkan juga kartu pembayaran karena metode dapat berubah.</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">4</span><span>Cuaca panas di siang hari; kombinasi museum lalu puncak pada sore hari sering menjadi urutan yang nyaman.</span></li>
+  </ul>
+
+  <div class="mt-10 rounded-2xl border border-[var(--forest)]/10 bg-[var(--paper)] p-6 text-xs leading-6 text-[var(--muted)]">
+    <strong class="text-[var(--forest)]">Catatan:</strong> tarif dan jam dapat berubah sewaktu-waktu. Informasi resmi terbaru tersedia pada kanal UPK Monas dan Pemerintah Provinsi DKI Jakarta.
+  </div>
+
+  <p class="mt-10"><a href="/" class="inline-flex items-center gap-2 text-sm font-bold text-[var(--red)] transition hover:gap-3">← Kembali ke beranda</a></p>
+</ArticleLayout>

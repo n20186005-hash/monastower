@@ -134,6 +134,49 @@ a { color: inherit; }
   transform: rotate(45deg);
 }
 
+.nav-active {
+  color: var(--gold);
+}
+
+.gallery-img {
+  cursor: zoom-in;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 24, 19, .92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: min(92vw, 1100px);
+  max-height: 82vh;
+  border-radius: 1rem;
+  object-fit: contain;
+}
+
+.lightbox figcaption {
+  margin-top: .9rem;
+  padding-inline: 1rem;
+  text-align: center;
+  color: rgba(255, 255, 255, .72);
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
 .map-frame iframe {
   width: 100%;
   min-height: 430px;
