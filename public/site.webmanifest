@@ -1,6 +1,6 @@
 {
-  "name": "MONAS Jakarta",
-  "short_name": "MONAS",
+  "name": "Monas Jakarta — Panduan Wisata",
+  "short_name": "Monas",
   "icons": [
     { "src": "/icons/favicon-32.png", "sizes": "32x32", "type": "image/png" },
     { "src": "/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }

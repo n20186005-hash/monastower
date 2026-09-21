@@ -17,10 +17,10 @@ Tidak ada database, login, CMS, framework UI, atau runtime server-side.
 
 ## Domain hanya di satu tempat
 
-Edit **hanya** konstanta `site` di `astro.config.mjs` ketika domain produksi sudah tersedia:
+Domain produksi ditulis **hanya** pada konstanta `site` di `astro.config.mjs`:
 
 ```js
-const site = '';
+const site = 'https://monastower.com';
 ```
 
 Saat kosong:
@@ -31,7 +31,22 @@ Saat kosong:
 - integrasi sitemap tidak diaktifkan;
 - tidak ada domain placeholder yang disisipkan.
 
-Saat diisi URL produksi, Astro akan menjadi sumber tunggal untuk canonical, Open Graph, JSON-LD, dan sitemap.
+Karena `site` sudah diisi, Astro menjadi sumber tunggal untuk canonical, `og:url`, `og:image` absolut, JSON-LD, dan `sitemap-index.xml`. Jangan pernah menulis domain secara hardcoded di komponen atau halaman.
+
+`public/robots.txt` menunjuk ke `https://monastower.com/sitemap-index.xml` dan `public/_headers` mengirim HSTS bersama header keamanan lainnya.
+
+## Format nama situs
+
+Nama situs mengikuti format **nama atraksi + kota + panduan wisata** dan ditulis sekali di `src/data/site.ts`:
+
+```ts
+export const SITE_NAME = 'Monas Jakarta — Panduan Wisata';
+```
+
+- Halaman cukup menulis judul tematik, misalnya `const title = 'Tiket Masuk Monas: Harga & Jam Buka';`.
+- `ArticleLayout` dan `LegalLayout` menambahkan ` | Monas Jakarta — Panduan Wisata` lewat `withSiteName()`, sehingga judul tidak perlu diulang di tiap halaman.
+- Beranda memakai `SITE_NAME` langsung sebagai awal judul, lalu menambahkan kata kunci utama.
+- `og:site_name` dan `public/site.webmanifest` membaca nilai yang sama.
 
 ## Instalasi & pemeriksaan bersih
 
@@ -62,6 +77,15 @@ Tidak ada `main` Worker karena build Astro bersifat statik. Setelah build:
 ```bash
 pnpm deploy
 ```
+
+## Pengaturan wajib di dashboard Cloudflare
+
+Redirect **tidak** bisa dilakukan dari `public/_redirects`: Workers Static Assets hanya menerima source berupa path, bukan domain-level redirect. Karena itu dua hal berikut wajib diaktifkan di dashboard Cloudflare:
+
+1. **Always Use HTTPS** (SSL/TLS → Edge Certificates) — mengalihkan semua `http://monastower.com/*` ke `https://` dengan 301, sehingga URL HTTP tidak lagi muncul di Google Search Console.
+2. **Bulk Redirects** — `http://www.monastower.com/*` dan `https://www.monastower.com/*` → `https://monastower.com/:splat` (301), agar tidak ada duplikasi www.
+
+HSTS dikirim dari `public/_headers`, jadi tidak perlu konfigurasi tambahan setelah Always Use HTTPS aktif.
 
 ## GA4
 

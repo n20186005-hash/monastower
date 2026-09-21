@@ -12,15 +12,29 @@
 - Google Maps embed menggunakan locale Bahasa Indonesia (`id`).
 - Wrangler dikonfigurasi sebagai Workers Static Assets dengan `assets.directory` menunjuk `./dist` dan tanpa `main`.
 
-## Gate lingkungan yang belum dapat dieksekusi di sandbox ini
+## Gate lingkungan
 
-Perintah bersih berikut sudah dicoba, tetapi Corepack tidak dapat mengunduh pnpm karena DNS sandbox gagal me-resolve `registry.npmjs.org` (`EAI_AGAIN`):
+`corepack pnpm install` tidak dapat dipakai di sandbox pengiriman awal karena DNS gagal me-resolve `registry.npmjs.org` (`EAI_AGAIN`). Gunakan pemanggilan pnpm langsung dengan Node 24.19.0:
 
 ```bash
-rm -rf node_modules
-CI=1 corepack pnpm install --frozen-lockfile
+node node_modules/astro/bin/astro.mjs build
+CI=1 node node_modules/astro/bin/astro.mjs check
 ```
 
-Karena instalasi tidak pernah dapat dimulai, `pnpm check`, `pnpm build`, dan grep terhadap `dist/` hasil build tidak dapat diklaim sudah lolos di sandbox ini.
+Hindari `pnpm check` bila pnpm menampilkan prompt interaktif terkait direktori modules.
 
-Jalankan `pnpm verify` pada runner dengan akses npm registry untuk mengeksekusi seluruh gate secara berurutan dan berhenti pada error pertama.
+## Hasil build & check yang sudah dieksekusi
+
+Dengan Node `24.19.0` dan pnpm `9.15.9` (`--config.node-linker=hoisted`):
+
+- `astro build` → 9 halaman statik + `dist/sitemap-index.xml`, tanpa error.
+- `astro check` → **0 error, 0 warning**, 8 hint (seluruhnya hint `is:inline` pada script GA4 dan JSON-LD).
+
+Pemeriksaan isi `dist/` yang sudah dikonfirmasi:
+
+- canonical absolut pada setiap halaman, misalnya `https://monastower.com/` dan `https://monastower.com/tiket/`.
+- `og:url`, `og:image` absolut, serta `og:site_name` terisi.
+- Beranda memuat `TouristAttraction`, `LocalBusiness`, dan `FAQPage` dengan pertanyaan yang benar-benar tampil di halaman.
+- `/tiket/` memuat `Article`, `BreadcrumbList`, dan `FAQPage`, lengkap dengan breadcrumb dan blok FAQ yang terlihat pengunjung.
+- `robots.txt`, `_headers`, `sitemap-index.xml`, dan `sitemap-0.xml` ikut terbit di `dist/`.
+- Tidak ada `aggregateRating` di JSON-LD karena situs tidak memiliki sumber rating yang ditampilkan.

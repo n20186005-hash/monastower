@@ -1,28 +1,69 @@
 ---
 import '../styles/global.css';
 import SiteFooter from '../components/SiteFooter.astro';
+import { SITE_NAME, withSiteName } from '../data/site';
+
+interface Faq {
+  q: string;
+  a: string;
+}
 
 interface Props {
   title: string;
   description: string;
+  faqs?: Faq[];
+  navLabel?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, faqs = [], navLabel } = Astro.props;
+const crumbLabel = navLabel ?? title;
+const hasFaqs = faqs.length > 0;
+const pageTitle = withSiteName(title);
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '');
 const canonicalUrl = siteUrl ? new URL(Astro.url.pathname, `${siteUrl}/`).toString() : undefined;
+const homeUrl = siteUrl ? `${siteUrl}/` : undefined;
 const ogImageUrl = siteUrl ? new URL('/images/monas-hero.jpg', `${siteUrl}/`).toString() : undefined;
+const faqId = canonicalUrl ? `${canonicalUrl}#faq` : '#faq';
 
 const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
-  headline: title,
+  headline: pageTitle,
   description,
   inLanguage: 'id-ID',
   author: { '@type': 'Organization', name: 'MonasGuide' },
   publisher: { '@type': 'Organization', name: 'MonasGuide' },
-  ...(canonicalUrl ? { mainEntityOfPage: canonicalUrl } : {})
+  ...(canonicalUrl ? { mainEntityOfPage: canonicalUrl } : {}),
+  ...(ogImageUrl ? { image: ogImageUrl } : {})
 };
+
+const breadcrumbLd = canonicalUrl
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Beranda', item: homeUrl },
+        { '@type': 'ListItem', position: 2, name: crumbLabel, item: canonicalUrl }
+      ]
+    }
+  : undefined;
+
+const faqLd = hasFaqs
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      '@id': faqId,
+      mainEntity: faqs.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a
+        }
+      }))
+    }
+  : undefined;
 ---
 
 <!doctype html>
@@ -31,20 +72,23 @@ const articleLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#19382f" />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
 
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="id_ID" />
-    <meta property="og:title" content={title} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    {ogImageUrl && <meta property="og:image:alt" content="Monumen Nasional (Monas) menjulang di langit Jakarta" />}
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+    {ogImageUrl && <meta name="twitter:image:alt" content="Monumen Nasional (Monas) menjulang di langit Jakarta" />}
 
     <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
@@ -53,6 +97,8 @@ const articleLd = {
     <link rel="manifest" href="/site.webmanifest" />
 
     <script type="application/ld+json" set:html={JSON.stringify(articleLd)}></script>
+    {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>}
+    {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>}
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
     <script is:inline>
@@ -75,7 +121,31 @@ const articleLd = {
 
     <main>
       <article class="section-shell max-w-3xl pt-32 pb-24 sm:pb-32">
+        <nav aria-label="Breadcrumb" class="mb-8">
+          <ol class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[.14em]">
+            <li><a href="/" class="text-[var(--muted)] transition hover:text-[var(--red)]">Beranda</a></li>
+            <li aria-hidden="true" class="text-[var(--muted)]/50">/</li>
+            <li aria-current="page" class="text-[var(--red)]">{crumbLabel}</li>
+          </ol>
+        </nav>
+
         <slot />
+
+        {hasFaqs && (
+          <section id="faq" class="mt-16 border-t border-[var(--forest)]/10 pt-10">
+            <h2 class="font-display text-3xl">Pertanyaan yang sering diajukan</h2>
+            <div class="mt-6 divide-y divide-[var(--forest)]/10 border-y border-[var(--forest)]/10">
+              {faqs.map((item, index) => (
+                <details class="group py-5" open={index === 0}>
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-5 font-display text-xl">
+                    <span>{item.q}</span><span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-[var(--forest)]/20 text-sm transition group-open:rotate-45">+</span>
+                  </summary>
+                  <p class="max-w-3xl pt-4 text-sm leading-7 text-[var(--muted)]">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
       </article>
     </main>
 

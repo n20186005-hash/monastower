@@ -1,15 +1,42 @@
 ---
 import ArticleLayout from '../layouts/ArticleLayout.astro';
 
-const title = 'Tiket & jam buka Monas: harga, jadwal, dan tips antre';
-const description = 'Info tiket Monas: harga pelataran puncak dan museum, jam kawasan, jadwal tutup Senin, serta tips menghindari antrean lift.';
+const title = 'Tiket Masuk Monas: Harga & Jam Buka';
+const description = 'Harga tiket masuk Monas terbaru: pelataran puncak Rp24.000, museum Rp8.000, jam buka Selasa–Minggu 06.00–22.00 WIB, tutup Senin, cara naik ke puncak, dan tips antrean lift.';
+
+const faqs = [
+  {
+    q: 'Berapa harga tiket masuk Monas untuk naik ke puncak?',
+    a: 'Tiket pelataran puncak Monas Rp24.000 untuk dewasa, Rp13.000 untuk mahasiswa, dan Rp6.000 untuk anak/pelajar. Tiket ini terpisah dari tiket museum di dasar tugu yang bertarif Rp8.000 untuk dewasa, Rp5.000 untuk mahasiswa, dan Rp3.000 untuk anak/pelajar.'
+  },
+  {
+    q: 'Apakah masuk ke kawasan taman Monas gratis?',
+    a: 'Ya. Masuk ke kawasan taman Monas tidak dipungut biaya. Tiket baru diperlukan bila Anda ingin memasuki museum di dasar tugu atau naik ke pelataran puncak.'
+  },
+  {
+    q: 'Jam berapa Monas buka dan hari apa saja tutup?',
+    a: 'Kawasan Monas umumnya buka Selasa sampai Minggu pukul 06.00–22.00 WIB dan tutup setiap Senin. Jam tugu, museum, dan pelataran puncak biasanya lebih singkat daripada jam kawasan, dan jadwal dapat berubah pada hari libur nasional atau acara khusus.'
+  },
+  {
+    q: 'Bagaimana cara naik ke atas Monas?',
+    a: 'Pelataran puncak berada pada ketinggian sekitar 115 meter dan dicapai dengan lift dari dasar tugu. Beli tiket puncak di loket resmi, ikuti antrean menuju lift, lalu nikmati panorama dari pelataran puncak. Antrean lebih panjang pada akhir pekan dan hari libur.'
+  },
+  {
+    q: 'Di mana tiket Monas dibeli?',
+    a: 'Tiket umumnya dibeli di loket resmi di kawasan Monas pada hari kunjungan. Kanal pembelian dan metode pembayaran dapat berubah—bawa uang tunai secukupnya dan periksa pengumuman UPK Monas atau Pemerintah Provinsi DKI Jakarta sebelum berangkat.'
+  },
+  {
+    q: 'Berapa lama antrean lift ke puncak Monas?',
+    a: 'Tidak ada angka pasti karena bergantung pada hari dan jumlah pengunjung. Antrean terpanjang biasanya terjadi pada akhir pekan, hari libur, dan menjelang sore. Datang pada pagi hari setelah kawasan dibuka adalah cara paling aman bila Anda ingin menghindari antrean.'
+  }
+];
 ---
 
-<ArticleLayout title={title} description={description}>
+<ArticleLayout title={title} description={description} faqs={faqs} navLabel="Tiket Monas">
   <p class="eyebrow text-[var(--red)]">Tiket & jam buka</p>
-  <h1 class="mt-4 font-display text-4xl leading-[1.05] sm:text-5xl">Taman gratis. Museum dan puncak bertiket.</h1>
+  <h1 class="mt-4 font-display text-4xl leading-[1.05] sm:text-5xl">Harga tiket masuk Monas &amp; jam buka 2026.</h1>
   <p class="mt-6 text-lg leading-8 text-[var(--muted)]">
-    Kawasan taman, museum, dan pelataran puncak tidak selalu memiliki jam layanan yang sama. Harga dan jadwal berikut mengikuti informasi publik; selalu cek kanal resmi pada hari kunjungan karena ketentuan dapat berubah.
+    Kawasan taman Monas gratis; museum di dasar tugu dan pelataran puncak bertiket. Kawasan taman, museum, dan pelataran puncak tidak selalu memiliki jam layanan yang sama. Harga dan jadwal berikut mengikuti informasi publik; selalu cek kanal resmi pada hari kunjungan karena ketentuan dapat berubah.
   </p>
 
   <h2 class="mt-14 font-display text-3xl">Jam kawasan</h2>
@@ -44,6 +71,15 @@ const description = 'Info tiket Monas: harga pelataran puncak dan museum, jam ka
       </div>
     </div>
   </div>
+
+  <h2 class="mt-14 font-display text-3xl">Cara naik ke pelataran puncak Monas</h2>
+  <ol class="mt-5 space-y-3 text-sm leading-7 text-[var(--muted)]">
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">1</span><span>Masuk lewat pintu kawasan yang aktif, lalu ikuti penunjuk arah menuju dasar tugu (cawan).</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">2</span><span>Beli tiket pelataran puncak di loket resmi—berbeda dari tiket museum.</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">3</span><span>Ikuti antrean menuju lift; petugas mengatur kapasitas pengunjung per sesi naik.</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">4</span><span>Lift membawa Anda ke pelataran puncak pada ketinggian sekitar 115 meter, tempat panorama Jakarta terlihat.</span></li>
+  </ol>
+  <p class="mt-4 text-xs leading-6 text-[var(--muted)]">Akses ke puncak dapat ditutup sementara karena cuaca, perawatan, atau acara khusus. Periksa pengumuman resmi bila Anda datang khusus untuk naik ke atas.</p>
 
   <h2 class="mt-14 font-display text-3xl">Tips menghindari antrean</h2>
   <ul class="mt-5 space-y-3 text-sm leading-7 text-[var(--muted)]">

@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// Isi domain produksi HANYA di sini ketika domain sudah ditentukan.
-const site = '';
+// Domain produksi: wajib diisi agar canonical, og:url absolut, sitemap, dan robots.txt terbit.
+const site = 'https://monastower.com';
 
 export default defineConfig({
   ...(site ? { site } : {}),

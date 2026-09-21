@@ -1,13 +1,14 @@
 ---
 import '../styles/global.css';
 import SiteFooter from '../components/SiteFooter.astro';
+import { SITE_NAME } from '../data/site';
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '');
 const canonicalUrl = siteUrl ? new URL(Astro.url.pathname, `${siteUrl}/`).toString() : undefined;
 const ogImageUrl = siteUrl ? new URL('/images/monas-hero.jpg', `${siteUrl}/`).toString() : undefined;
 
-const title = 'Monumen Nasional Jakarta — Panduan Berkunjung ke Monas';
-const description = 'Panduan independen untuk mengunjungi Monumen Nasional (Monas) di Lapangan Merdeka, Jakarta: tiket, jam kunjungan, transportasi, parkir, toilet, kuliner, penginapan, minimarket, SPBU, dan tempat menarik di sekitarnya.';
+const title = `${SITE_NAME}: Tiket & Jam Operasional`;
+const description = 'Harga tiket masuk Monas terbaru (pelataran puncak & museum), jam operasional Selasa–Minggu 06.00–22.00 WIB, alamat lengkap di Gambir, serta cara naik ke puncak Monas.';
 
 const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7065.625695279536!2d106.82453567695767!3d-6.175308293812117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2z5Y2w5bC85Zu95a6257qq5b-15aGU!5e1!3m2!1sid!2sid!4v1786954904236!5m2!1sid!2sid';
 
@@ -17,7 +18,11 @@ const faqId = siteUrl ? `${siteUrl}/#faq` : '#faq';
 
 const placeBase = {
   name: 'Monumen Nasional (Monas)',
+  alternateName: ['Monas', 'Monumen Nasional', 'Tugu Monas'],
   description,
+  hasMap: 'https://maps.app.goo.gl/FG34Yr9Wqe4JmQ7FA',
+  isAccessibleForFree: true,
+  publicAccess: true,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Jalan Lapangan Monas, RT.5/RW.2, Gambir',
@@ -46,14 +51,7 @@ const placeBase = {
     { '@type': 'LocationFeatureSpecification', name: 'Makan & minum', value: true },
     { '@type': 'LocationFeatureSpecification', name: 'Minimarket & ATM', value: true },
     { '@type': 'LocationFeatureSpecification', name: 'SPBU & pengisian daya', value: true }
-  ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: 3.9,
-    ratingCount: 4209,
-    bestRating: 5,
-    worstRating: 1
-  }
+  ]
 };
 
 const attractionLd = {
@@ -79,12 +77,24 @@ const attractionLd = {
 
 const faqs = [
   {
-    q: 'Apakah masuk kawasan Monas gratis?',
-    a: 'Ya. Masuk ke kawasan taman Monas tidak dipungut biaya. Tiket diperlukan bila Anda ingin memasuki museum di dasar tugu atau naik ke pelataran puncak.'
+    q: 'Berapa harga tiket masuk Monas?',
+    a: 'Masuk ke kawasan taman Monas gratis. Tiket pelataran puncak Rp24.000 untuk dewasa, Rp13.000 untuk mahasiswa, dan Rp6.000 untuk anak/pelajar. Tiket museum di dasar tugu Rp8.000 untuk dewasa, Rp5.000 untuk mahasiswa, dan Rp3.000 untuk anak/pelajar. Tarif dapat berubah pada acara khusus—periksa kanal resmi sebelum berangkat.'
   },
   {
-    q: 'Hari apa Monas tutup?',
-    a: 'Kawasan Monas pada umumnya beroperasi Selasa sampai Minggu dan tutup pada Senin. Jadwal tugu, museum, pelataran puncak, atau acara khusus dapat berbeda, jadi periksa kanal resmi Monas sebelum berangkat.'
+    q: 'Jam operasional Monas: buka jam berapa dan tutup hari apa?',
+    a: 'Kawasan Monas umumnya beroperasi Selasa sampai Minggu pukul 06.00–22.00 WIB dan tutup setiap Senin. Jam tugu, museum, dan pelataran puncak biasanya lebih singkat daripada jam kawasan, dan jadwal dapat berubah pada hari libur nasional atau acara khusus.'
+  },
+  {
+    q: 'Bagaimana cara naik ke atas Monas?',
+    a: 'Pelataran puncak Monas berada pada ketinggian sekitar 115 meter dan dicapai dengan lift dari dasar tugu. Anda memerlukan tiket puncak yang terpisah dari tiket museum. Antrean lift lebih panjang pada akhir pekan dan hari libur, jadi datang lebih awal bila memungkinkan.'
+  },
+  {
+    q: 'Di mana alamat Monas?',
+    a: 'Alamat Monumen Nasional: Jalan Lapangan Monas, RT.5/RW.2, Gambir, Jakarta Pusat, DKI Jakarta 10110, Indonesia. Monas berdiri di tengah Lapangan Merdeka yang dikelilingi Jalan Medan Merdeka, dengan Stasiun Gambir di sisi timurnya.'
+  },
+  {
+    q: 'Apakah masuk kawasan Monas gratis?',
+    a: 'Ya. Masuk ke kawasan taman Monas tidak dipungut biaya. Tiket diperlukan bila Anda ingin memasuki museum di dasar tugu atau naik ke pelataran puncak.'
   },
   {
     q: 'Bagaimana cara paling mudah menuju Monas dengan transportasi umum?',
@@ -109,10 +119,6 @@ const faqs = [
   {
     q: 'Mengapa puncak Monas berupa api berlapis emas?',
     a: 'Lidah api melambangkan semangat kemerdekaan yang diharapkan tidak pernah padam. Api dibuat dari perunggu berlapis emas dan bersifat simbolis—tidak benar-benar menyala, tetapi pada malam hari pencahayaan membuatnya tampak berkobar.'
-  },
-  {
-    q: 'Berapa tinggi pelataran puncak Monas dan bagaimana cara ke sana?',
-    a: 'Pelataran puncak berada pada ketinggian sekitar 115 meter dan dicapai dengan lift dari dasar. Akses puncak menggunakan tiket terpisah dari museum, dan antrean lebih panjang pada akhir pekan serta hari libur.'
   },
   {
     q: 'Apa makna bentuk dasar Monas yang menyerupai cawan dan obelisk?',
@@ -147,14 +153,19 @@ const faqLd = {
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    {ogImageUrl && <meta property="og:image:alt" content="Monumen Nasional (Monas) menjulang di langit Jakarta" />}
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="853" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+    {ogImageUrl && <meta name="twitter:image:alt" content="Monumen Nasional (Monas) menjulang di langit Jakarta" />}
 
     <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
@@ -201,10 +212,10 @@ const faqLd = {
             <div class="max-w-4xl">
               <p class="eyebrow text-[var(--gold)]">Jantung Jakarta · Lapangan Merdeka</p>
               <h1 class="mt-5 max-w-4xl font-display text-6xl font-semibold leading-[.92] tracking-[-.055em] sm:text-7xl lg:text-[7.5rem]">
-                Monas,<br /><span class="text-[var(--gold)]">api kemerdekaan</span> di cakrawala kota.
+                Tiket masuk Monas,<br />jam operasional &amp; <span class="text-[var(--gold)]">cara ke puncak</span>.
               </h1>
               <p class="mt-8 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">
-                Monumen Nasional setinggi 132 meter berdiri di pusat Lapangan Merdeka—tempat sejarah, ruang kota, museum, dan panorama Jakarta bertemu dalam satu garis vertikal yang tak mungkin tertukar.
+                Monumen Nasional setinggi 132 meter berdiri di pusat Lapangan Merdeka, Gambir, Jakarta Pusat. Taman Monas gratis; museum dan pelataran puncak bertiket—berikut harga, jam operasional, alamat, dan rute naik ke atas dalam satu panduan.
               </p>
               <div class="mt-9 flex flex-wrap gap-3">
                 <a href="#rencana" class="rounded-full bg-[var(--red)] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">Rencanakan kunjungan</a>
@@ -543,7 +554,7 @@ const faqLd = {
             <div>
               <p class="eyebrow">Lokasi & orientasi</p>
               <h2 class="display-title mt-4">Temukan gerbang yang paling masuk akal dari arah datang Anda.</h2>
-              <p class="mt-6 text-sm leading-7 text-[var(--muted)]">Alamat: Jalan Lapangan Monas, RT.5/RW.2, Gambir, Jakarta Pusat 10110. Peta di bawah menggunakan tampilan Bahasa Indonesia.</p>
+              <p class="mt-6 text-sm leading-7 text-[var(--muted)]">Alamat Monas: <address class="inline not-italic">Jalan Lapangan Monas, RT.5/RW.2, Gambir, Jakarta Pusat, DKI Jakarta 10110</address>. Kawasan ini dikelilingi Jalan Medan Merdeka di empat sisi; peta di bawah menggunakan tampilan Bahasa Indonesia.</p>
               <a href="https://maps.app.goo.gl/FG34Yr9Wqe4JmQ7FA" target="_blank" rel="noopener" class="mt-7 inline-flex items-center gap-3 rounded-full bg-[var(--forest)] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[var(--forest)]/90">
                 Rute di Google Maps
                 <span aria-hidden="true" class="text-[var(--gold)]">↗</span>

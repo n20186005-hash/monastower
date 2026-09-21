@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Halaman legal tetap diindeks, tetapi tidak ikut bersaing di hasil utama.
+Disallow: /*?s=
+
+Sitemap: https://monastower.com/sitemap-index.xml
