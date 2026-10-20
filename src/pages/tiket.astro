@@ -1,21 +1,23 @@
 ---
 import ArticleLayout from '../layouts/ArticleLayout.astro';
+import VisitNotice from '../components/VisitNotice.astro';
+import {priceAnswer,hoursAnswer,admissionAnswer} from '../data/visit';
 
 const title = 'Tiket Masuk Monas: Harga & Jam Buka';
-const description = 'Harga tiket masuk Monas terbaru: pelataran puncak Rp24.000, museum Rp8.000, jam buka Selasa–Minggu 06.00–22.00 WIB, tutup Senin, cara naik ke puncak, dan tips antrean lift.';
+const description = 'Tiket museum dan puncak Monas: referensi tarif Beritajakarta 2 Januari 2026, perbedaan jam listing dan fasilitas, kartu pembayaran, kuota dan hal yang perlu dikonfirmasi.';
 
 const faqs = [
   {
     q: 'Berapa harga tiket masuk Monas untuk naik ke puncak?',
-    a: 'Tiket pelataran puncak Monas Rp24.000 untuk dewasa, Rp13.000 untuk mahasiswa, dan Rp6.000 untuk anak/pelajar. Tiket ini terpisah dari tiket museum di dasar tugu yang bertarif Rp8.000 untuk dewasa, Rp5.000 untuk mahasiswa, dan Rp3.000 untuk anak/pelajar.'
+    a: priceAnswer
   },
   {
     q: 'Apakah masuk ke kawasan taman Monas gratis?',
-    a: 'Ya. Masuk ke kawasan taman Monas tidak dipungut biaya. Tiket baru diperlukan bila Anda ingin memasuki museum di dasar tugu atau naik ke pelataran puncak.'
+    a: admissionAnswer
   },
   {
     q: 'Jam berapa Monas buka dan hari apa saja tutup?',
-    a: 'Kawasan Monas umumnya buka Selasa sampai Minggu pukul 06.00–22.00 WIB dan tutup setiap Senin. Jam tugu, museum, dan pelataran puncak biasanya lebih singkat daripada jam kawasan, dan jadwal dapat berubah pada hari libur nasional atau acara khusus.'
+    a: hoursAnswer
   },
   {
     q: 'Bagaimana cara naik ke atas Monas?',
@@ -23,7 +25,7 @@ const faqs = [
   },
   {
     q: 'Di mana tiket Monas dibeli?',
-    a: 'Tiket umumnya dibeli di loket resmi di kawasan Monas pada hari kunjungan. Kanal pembelian dan metode pembayaran dapat berubah—bawa uang tunai secukupnya dan periksa pengumuman UPK Monas atau Pemerintah Provinsi DKI Jakarta sebelum berangkat.'
+    a: 'Laporan Beritajakarta 2 Januari 2026 menyebut JakCard atau kartu terbitan Bank DKI. Konfirmasikan kanal pembelian, kartu yang diterima, biaya kartu, cakupan tiket dan ketersediaan kuota melalui UPK Monas pada tanggal kunjungan.'
   },
   {
     q: 'Berapa lama antrean lift ke puncak Monas?',
@@ -34,27 +36,28 @@ const faqs = [
 
 <ArticleLayout title={title} description={description} faqs={faqs} navLabel="Tiket Monas">
   <p class="eyebrow text-[var(--red)]">Tiket & jam buka</p>
-  <h1 class="mt-4 font-display text-4xl leading-[1.05] sm:text-5xl">Harga tiket masuk Monas &amp; jam buka 2026.</h1>
+  <h1 class="mt-4 font-display text-4xl leading-[1.05] sm:text-5xl">Tiket Monas 2026: referensi tarif &amp; pemeriksaan jadwal.</h1>
   <p class="mt-6 text-lg leading-8 text-[var(--muted)]">
-    Kawasan taman Monas gratis; museum di dasar tugu dan pelataran puncak bertiket. Kawasan taman, museum, dan pelataran puncak tidak selalu memiliki jam layanan yang sama. Harga dan jadwal berikut mengikuti informasi publik; selalu cek kanal resmi pada hari kunjungan karena ketentuan dapat berubah.
+    Kawasan luar, museum dan puncak memiliki akses dan layanan berbeda. Tarif di bawah hanya referensi dari laporan resmi 2 Januari 2026; jangan menganggapnya tarif atau jaminan kuota pada hari kunjungan Anda.
   </p>
 
-  <h2 class="mt-14 font-display text-3xl">Jam kawasan</h2>
+  <VisitNotice />
+  <h2 class="mt-14 font-display text-3xl">Jam listing dan layanan yang berbeda</h2>
   <div class="mt-5 overflow-hidden rounded-2xl border border-[var(--forest)]/10 bg-[var(--paper)]">
     <div class="grid grid-cols-2 gap-px bg-[var(--forest)]/10">
       <div class="bg-[var(--paper)] p-5"><p class="text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Hari</p></div>
       <div class="bg-[var(--paper)] p-5"><p class="text-xs font-black uppercase tracking-[.18em] text-[var(--red)]">Jam</p></div>
       <div class="bg-[var(--paper)] p-5 text-sm text-[var(--muted)]">Selasa–Minggu</div>
-      <div class="bg-[var(--paper)] p-5 text-sm font-semibold">06.00–22.00 WIB</div>
+      <div class="bg-[var(--paper)] p-5 text-sm font-semibold">08.00–21.00 · listing Maps 19 Okt 2026</div>
       <div class="bg-[var(--paper)] p-5 text-sm text-[var(--muted)]">Senin</div>
       <div class="bg-[var(--paper)] p-5 text-sm font-semibold">Tutup</div>
       <div class="bg-[var(--paper)] p-5 text-sm text-[var(--muted)]">Tugu, museum & puncak</div>
-      <div class="bg-[var(--paper)] p-5 text-sm font-semibold">Jam lebih singkat dari kawasan</div>
+      <div class="bg-[var(--paper)] p-5 text-sm font-semibold">Konfirmasi jadwal masing-masing</div>
     </div>
   </div>
-  <p class="mt-4 text-xs leading-6 text-[var(--muted)]">Jam tugu dan pelataran puncak umumnya berakhir lebih awal daripada jam kawasan. Pada hari libur nasional, jadwal dapat diperpanjang atau disesuaikan—periksa pengumuman resmi.</p>
+  <p class="mt-4 text-xs leading-6 text-[var(--muted)]">Tabel ini merangkum listing Maps bertanggal, bukan jadwal tersendiri setiap fasilitas. Konfirmasikan jam taman, museum, loket dan pelataran puncak melalui operator.</p>
 
-  <h2 class="mt-14 font-display text-3xl">Tarif tiket</h2>
+  <h2 class="mt-14 font-display text-3xl">Referensi tarif laporan 2 Januari 2026</h2>
   <div class="mt-5 overflow-hidden rounded-2xl border border-[var(--forest)]/10 bg-[var(--paper)]">
     <div class="grid gap-px bg-[var(--forest)]/10 sm:grid-cols-2">
       <div class="bg-[var(--paper)] p-6">
@@ -75,7 +78,7 @@ const faqs = [
   <h2 class="mt-14 font-display text-3xl">Cara naik ke pelataran puncak Monas</h2>
   <ol class="mt-5 space-y-3 text-sm leading-7 text-[var(--muted)]">
     <li class="flex gap-3"><span class="font-black text-[var(--red)]">1</span><span>Masuk lewat pintu kawasan yang aktif, lalu ikuti penunjuk arah menuju dasar tugu (cawan).</span></li>
-    <li class="flex gap-3"><span class="font-black text-[var(--red)]">2</span><span>Beli tiket pelataran puncak di loket resmi—berbeda dari tiket museum.</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">2</span><span>Konfirmasikan loket, metode pembelian dan cakupan tiket pelataran puncak.</span></li>
     <li class="flex gap-3"><span class="font-black text-[var(--red)]">3</span><span>Ikuti antrean menuju lift; petugas mengatur kapasitas pengunjung per sesi naik.</span></li>
     <li class="flex gap-3"><span class="font-black text-[var(--red)]">4</span><span>Lift membawa Anda ke pelataran puncak pada ketinggian sekitar 115 meter, tempat panorama Jakarta terlihat.</span></li>
   </ol>
@@ -84,8 +87,8 @@ const faqs = [
   <h2 class="mt-14 font-display text-3xl">Tips menghindari antrean</h2>
   <ul class="mt-5 space-y-3 text-sm leading-7 text-[var(--muted)]">
     <li class="flex gap-3"><span class="font-black text-[var(--red)]">1</span><span>Antrean lift ke pelataran puncak lebih panjang pada akhir pekan dan hari libur; datang pada pagi hari bila ingin memaksimalkan waktu.</span></li>
-    <li class="flex gap-3"><span class="font-black text-[var(--red)]">2</span><span>Tiket puncak dan museum bersifat terpisah; putuskan sejak awal agar tidak mengantre dua kali.</span></li>
-    <li class="flex gap-3"><span class="font-black text-[var(--red)]">3</span><span>Bawa uang tunai kecil untuk tiket dan kebutuhan harian; siapkan juga kartu pembayaran karena metode dapat berubah.</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">2</span><span>Konfirmasikan cakupan tiket museum dan puncak agar tidak salah memilih produk.</span></li>
+    <li class="flex gap-3"><span class="font-black text-[var(--red)]">3</span><span>Laporan 2 Januari 2026 menyebut JakCard atau kartu terbitan Bank DKI; konfirmasikan metode saat ini, pembelian kartu dan biaya tambahannya sebelum datang.</span></li>
     <li class="flex gap-3"><span class="font-black text-[var(--red)]">4</span><span>Cuaca panas di siang hari; kombinasi museum lalu puncak pada sore hari sering menjadi urutan yang nyaman.</span></li>
   </ul>
 

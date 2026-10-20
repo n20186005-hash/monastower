@@ -82,7 +82,7 @@ pnpm deploy
 
 Redirect **tidak** bisa dilakukan dari `public/_redirects`: Workers Static Assets hanya menerima source berupa path, bukan domain-level redirect. Karena itu dua hal berikut wajib diaktifkan di dashboard Cloudflare:
 
-1. **Always Use HTTPS** (SSL/TLS → Edge Certificates) — mengalihkan semua `http://monastower.com/*` ke `https://` dengan 301, sehingga URL HTTP tidak lagi muncul di Google Search Console.
+1. **Always Use HTTPS** (SSL/TLS → Edge Certificates) — mengalihkan semua `http://monastower.com/*` ke `https://` dengan 301, untuk menjaga konsistensi URL canonical.
 2. **Bulk Redirects** — `http://www.monastower.com/*` dan `https://www.monastower.com/*` → `https://monastower.com/:splat` (301), agar tidak ada duplikasi www.
 
 HSTS dikirim dari `public/_headers`, jadi tidak perlu konfigurasi tambahan setelah Always Use HTTPS aktif.

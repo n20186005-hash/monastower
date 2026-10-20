@@ -8,7 +8,7 @@ const site = 'https://monastower.com';
 export default defineConfig({
   ...(site ? { site } : {}),
   output: 'static',
-  integrations: site ? [sitemap()] : [],
+  integrations: site ? [sitemap({filter:(page)=>!page.endsWith('/404/')})] : [],
   vite: {
     plugins: [tailwindcss()]
   }
