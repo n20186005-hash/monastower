@@ -96,11 +96,11 @@ const faqLd = hasFaqs
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(articleLd)}></script>
-    {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>}
-    {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(articleLd)}></script>
+    {breadcrumbLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>}
+    {faqLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>}
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
     <script is:inline>
       const w = /** @type {any} */ (window);
       w.dataLayer = w.dataLayer || [];

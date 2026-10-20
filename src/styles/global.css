@@ -197,3 +197,11 @@ a { color: inherit; }
     transition-duration: .01ms !important;
   }
 }
+
+header a, footer nav a { display:inline-flex; align-items:center; min-height:44px; }
+[id] { scroll-margin-top:100px; }
+@media (max-width:767px) {
+  header.fixed { position:relative; }
+  header > .section-shell { height:auto; min-height:80px; flex-wrap:wrap; padding-block:12px; gap:12px; }
+  .main-nav { order:3; width:100%; gap:4px 16px; }
+}

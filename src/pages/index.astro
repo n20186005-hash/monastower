@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import VisitNotice from '../components/VisitNotice.astro';
+import {priceAnswer,hoursAnswer,admissionAnswer} from '../data/visit';
 import SiteFooter from '../components/SiteFooter.astro';
 import { SITE_NAME } from '../data/site';
 
@@ -8,12 +10,11 @@ const canonicalUrl = siteUrl ? new URL(Astro.url.pathname, `${siteUrl}/`).toStri
 const ogImageUrl = siteUrl ? new URL('/images/monas-hero.jpg', `${siteUrl}/`).toString() : undefined;
 
 const title = `${SITE_NAME}: Tiket & Jam Operasional`;
-const description = 'Harga tiket masuk Monas terbaru (pelataran puncak & museum), jam operasional Selasa–Minggu 06.00–22.00 WIB, alamat lengkap di Gambir, serta cara naik ke puncak Monas.';
+const description = 'Panduan Monas Jakarta: referensi tarif museum dan puncak bertanggal, perbedaan jam listing dengan layanan fasilitas, alamat Gambir dan hal yang perlu dikonfirmasi sebelum datang.';
 
 const mapEmbed = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7065.625695279536!2d106.82453567695767!3d-6.175308293812117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2z5Y2w5bC85Zu95a6257qq5b-15aGU!5e1!3m2!1sid!2sid!4v1786954904236!5m2!1sid!2sid';
 
 const attractionId = siteUrl ? `${siteUrl}/#monas` : '#monas';
-const localBusinessId = siteUrl ? `${siteUrl}/#kunjungan-monas` : '#kunjungan-monas';
 const faqId = siteUrl ? `${siteUrl}/#faq` : '#faq';
 
 const placeBase = {
@@ -21,8 +22,6 @@ const placeBase = {
   alternateName: ['Monas', 'Monumen Nasional', 'Tugu Monas'],
   description,
   hasMap: 'https://maps.app.goo.gl/FG34Yr9Wqe4JmQ7FA',
-  isAccessibleForFree: true,
-  publicAccess: true,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Jalan Lapangan Monas, RT.5/RW.2, Gambir',
@@ -33,60 +32,27 @@ const placeBase = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: -6.175389,
-    longitude: 106.827139
+    latitude: -6.1753083,
+    longitude: 106.8271106
   },
   telephone: '+62 21 3853040',
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '06:00',
-      closes: '22:00'
-    }
-  ],
-  amenityFeature: [
-    { '@type': 'LocationFeatureSpecification', name: 'Toilet umum', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Parkir', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Makan & minum', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Minimarket & ATM', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'SPBU & pengisian daya', value: true }
-  ]
+
 };
 
-const attractionLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'TouristAttraction',
-      '@id': attractionId,
-      ...placeBase,
-      ...(canonicalUrl ? { url: canonicalUrl } : {}),
-      ...(ogImageUrl ? { image: ogImageUrl } : {}),
-    },
-    {
-      '@type': 'LocalBusiness',
-      '@id': localBusinessId,
-      ...placeBase,
-      ...(canonicalUrl ? { url: canonicalUrl } : {}),
-      ...(ogImageUrl ? { image: ogImageUrl } : {}),
-      priceRange: 'Rp0–Rp24.000+'
-    }
-  ]
-};
+const attractionLd = {'@context':'https://schema.org','@type':'TouristAttraction','@id':attractionId,...placeBase,url:canonicalUrl,image:ogImageUrl};
 
 const faqs = [
   {
     q: 'Berapa harga tiket masuk Monas?',
-    a: 'Masuk ke kawasan taman Monas gratis. Tiket pelataran puncak Rp24.000 untuk dewasa, Rp13.000 untuk mahasiswa, dan Rp6.000 untuk anak/pelajar. Tiket museum di dasar tugu Rp8.000 untuk dewasa, Rp5.000 untuk mahasiswa, dan Rp3.000 untuk anak/pelajar. Tarif dapat berubah pada acara khusus—periksa kanal resmi sebelum berangkat.'
+    a: priceAnswer
   },
   {
     q: 'Jam operasional Monas: buka jam berapa dan tutup hari apa?',
-    a: 'Kawasan Monas umumnya beroperasi Selasa sampai Minggu pukul 06.00–22.00 WIB dan tutup setiap Senin. Jam tugu, museum, dan pelataran puncak biasanya lebih singkat daripada jam kawasan, dan jadwal dapat berubah pada hari libur nasional atau acara khusus.'
+    a: hoursAnswer
   },
   {
     q: 'Bagaimana cara naik ke atas Monas?',
-    a: 'Pelataran puncak Monas berada pada ketinggian sekitar 115 meter dan dicapai dengan lift dari dasar tugu. Anda memerlukan tiket puncak yang terpisah dari tiket museum. Antrean lift lebih panjang pada akhir pekan dan hari libur, jadi datang lebih awal bila memungkinkan.'
+    a: 'Pelataran puncak Monas berada pada ketinggian sekitar 115 meter dan dicapai dengan lift dari dasar tugu. Anda memerlukan konfirmasi cakupan tiket museum dan puncak. Antrean lift lebih panjang pada akhir pekan dan hari libur, jadi datang lebih awal bila memungkinkan.'
   },
   {
     q: 'Di mana alamat Monas?',
@@ -94,15 +60,15 @@ const faqs = [
   },
   {
     q: 'Apakah masuk kawasan Monas gratis?',
-    a: 'Ya. Masuk ke kawasan taman Monas tidak dipungut biaya. Tiket diperlukan bila Anda ingin memasuki museum di dasar tugu atau naik ke pelataran puncak.'
+    a: admissionAnswer
   },
   {
     q: 'Bagaimana cara paling mudah menuju Monas dengan transportasi umum?',
-    a: 'TransJakarta adalah pilihan praktis karena Halte Monumen Nasional dilayani Koridor 1, Koridor 2, Koridor 3, dan beberapa rute lain. Stasiun Gambir juga berada di sisi timur kawasan dan dapat dilanjutkan dengan berjalan kaki atau kendaraan singkat.'
+    a: 'Periksa rute dan halte aktif melalui operator transportasi pada hari perjalanan. Jangan menganggap semua layanan kereta atau KRL berhenti di Gambir. Cocokkan titik turun dengan pintu masuk Monas yang dibuka dan kondisi lalu lintas.'
   },
   {
     q: 'Apakah MRT sudah berhenti di Monas?',
-    a: 'Belum. Stasiun MRT Monas merupakan bagian proyek MRT Jakarta Fase 2A dan masih dalam pembangunan. Gunakan TransJakarta, kereta ke area pusat kota, taksi, atau transportasi daring untuk kunjungan saat ini.'
+    a: 'Periksa daftar stasiun yang melayani penumpang melalui kanal MRT Jakarta pada tanggal perjalanan. Jangan menganggap nama stasiun pada peta atau proyek berarti layanan tersebut sudah beroperasi.'
   },
   {
     q: 'Berapa lama waktu yang nyaman untuk berkunjung?',
@@ -114,7 +80,7 @@ const faqs = [
   },
   {
     q: 'Apakah tersedia toilet dan fasilitas penunjang lain di sekitar Monas?',
-    a: 'Ya. Toilet umum tersedia di kawasan taman, sebagian berbayar kecil. Untuk makan, minimarket, ATM, penginapan, SPBU, hingga pengisian daya kendaraan listrik, berbagai pilihan tersedia di sekitar Gambir dan Thamrin. Ketersediaan bervariasi, jadi periksa kanal resmi atau aplikasi terkait sebelum berangkat.'
+    a: 'Konfirmasikan fasilitas, akses dan biaya yang Anda perlukan melalui operator atau petugas kawasan. Panduan ini tidak memverifikasi ketersediaan toilet, parkir, ATM atau pengisian kendaraan pada hari kunjungan.'
   },
   {
     q: 'Mengapa puncak Monas berupa api berlapis emas?',
@@ -173,10 +139,10 @@ const faqLd = {
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(attractionLd)}></script>
-    <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(attractionLd)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
     <script is:inline>
       const w = /** @type {any} */ (window);
       w.dataLayer = w.dataLayer || [];
@@ -191,7 +157,7 @@ const faqLd = {
         <a href="#awal" aria-label="Monas Jakarta — kembali ke awal" class="shrink-0">
           <img src="/logo.svg" alt="Logo Monas Jakarta" class="h-12 w-auto" width="340" height="96" />
         </a>
-        <nav aria-label="Navigasi utama" class="hidden items-center gap-5 text-sm font-semibold md:flex">
+        <nav aria-label="Navigasi utama" class="main-nav flex flex-wrap items-center gap-5 text-sm font-semibold">
           <a class="scroll-link transition hover:text-[var(--gold)]" href="#kisah"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">01</span>Kisah</a>
           <a class="scroll-link transition hover:text-[var(--gold)]" href="#rencana"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">02</span>Kunjungan</a>
           <a class="scroll-link transition hover:text-[var(--gold)]" href="#transportasi"><span class="mr-1.5 text-[.6rem] font-black text-[var(--gold)]/45">03</span>Transportasi</a>
@@ -215,7 +181,7 @@ const faqLd = {
                 Tiket masuk Monas,<br />jam operasional &amp; <span class="text-[var(--gold)]">cara ke puncak</span>.
               </h1>
               <p class="mt-8 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">
-                Monumen Nasional setinggi 132 meter berdiri di pusat Lapangan Merdeka, Gambir, Jakarta Pusat. Taman Monas gratis; museum dan pelataran puncak bertiket—berikut harga, jam operasional, alamat, dan rute naik ke atas dalam satu panduan.
+                Monumen Nasional setinggi 132 meter berdiri di pusat Lapangan Merdeka, Gambir, Jakarta Pusat. Bedakan kawasan luar, museum dan pelataran puncak: berikut sumber bertanggal tentang tarif, jam, alamat dan hal yang perlu dikonfirmasi sebelum kunjungan.
               </p>
               <div class="mt-9 flex flex-wrap gap-3">
                 <a href="#rencana" class="rounded-full bg-[var(--red)] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">Rencanakan kunjungan</a>
@@ -227,12 +193,12 @@ const faqLd = {
               <p class="eyebrow text-white/55">Sebelum berangkat</p>
               <dl class="mt-7 space-y-5">
                 <div class="border-b border-white/15 pb-4">
-                  <dt class="text-xs uppercase tracking-[.18em] text-white/55">Kawasan</dt>
-                  <dd class="mt-1 text-lg font-semibold">Selasa–Minggu · 06.00–22.00 WIB</dd>
+                  <dt class="text-xs uppercase tracking-[.18em] text-white/55">Listing Maps, bukan semua fasilitas</dt>
+                  <dd class="mt-1 text-lg font-semibold">Maps 19 Okt 2026 · 08.00–21.00</dd>
                 </div>
                 <div class="border-b border-white/15 pb-4">
                   <dt class="text-xs uppercase tracking-[.18em] text-white/55">Masuk taman</dt>
-                  <dd class="mt-1 text-lg font-semibold">Gratis</dd>
+                  <dd class="mt-1 text-lg font-semibold">Konfirmasi kebijakan akses</dd>
                 </div>
                 <div>
                   <dt class="text-xs uppercase tracking-[.18em] text-white/55">Waktu nyaman</dt>
@@ -383,7 +349,7 @@ const faqLd = {
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--gold)] text-sm font-black text-[var(--forest)]">03</span>
               <h3 class="mt-6 font-display text-2xl">Pelataran Puncak · 115 m</h3>
               <p class="mt-3 text-sm leading-6 text-white/65">Lift mengantar ke pelataran observasi setinggi sekitar 115 meter. Dari sini Lapangan Merdeka, Istana Merdeka, Istiqlal, hingga deretan gedung di sepanjang Thamrin tampak seperti peta hidup Jakarta.</p>
-              <p class="mt-5 text-xs leading-5 text-white/45">Lift · antrean & tiket terpisah</p>
+              <p class="mt-5 text-xs leading-5 text-white/45">Lift · kuota dan cakupan tiket perlu dikonfirmasi</p>
             </article>
           </div>
 
@@ -437,16 +403,17 @@ const faqLd = {
             </p>
           </div>
 
+          <VisitNotice />
           <div class="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             <article class="rounded-[2rem] bg-[var(--paper)] p-7 shadow-[0_12px_50px_rgba(25,56,47,.07)]">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-lg text-[var(--gold)]">◷</span>
-              <h3 class="mt-7 font-display text-2xl">Jam kawasan</h3>
-              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Selasa–Minggu, umumnya 06.00–22.00 WIB. Senin tutup. Jam tugu dan puncak dapat lebih singkat.</p>
+              <h3 class="mt-7 font-display text-2xl">Jam listing Maps</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Maps 19 Oktober 2026: Selasa–Minggu 08.00–21.00, Senin tutup. Tanggal dan cakupannya berbeda dari laporan UPK pada Januari; konfirmasikan taman, museum dan puncak secara terpisah.</p>
             </article>
             <article class="rounded-[2rem] bg-[var(--paper)] p-7 shadow-[0_12px_50px_rgba(25,56,47,.07)]">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--red)] text-lg text-white">☼</span>
               <h3 class="mt-7 font-display text-2xl">Waktu terbaik</h3>
-              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">06.00–09.00 untuk udara yang lebih nyaman dan 16.00–menjelang malam untuk cahaya kota. Hindari tengah hari bila ingin banyak berjalan.</p>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Pilih waktu yang sesuai setelah mengonfirmasi akses fasilitas yang dituju. Hindari tengah hari bila ingin banyak berjalan.</p>
             </article>
             <article class="rounded-[2rem] bg-[var(--paper)] p-7 shadow-[0_12px_50px_rgba(25,56,47,.07)]">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--gold)] text-lg text-[var(--forest)]">⌛</span>
@@ -464,8 +431,8 @@ const faqLd = {
             <div class="grid lg:grid-cols-[.86fr_1.14fr]">
               <div class="p-8 sm:p-10 lg:p-12">
                 <p class="eyebrow text-[var(--gold)]">Tiket & biaya</p>
-                <h3 class="mt-4 font-display text-4xl leading-tight sm:text-5xl">Taman gratis. Museum dan puncak bertiket.</h3>
-                <p class="mt-5 max-w-lg text-sm leading-7 text-white/65">Tarif di bawah mengikuti informasi publik Monas. Kartu pembayaran, kategori pengunjung, atau tarif acara khusus dapat berubah—cek kanal resmi sebelum datang.</p>
+                <h3 class="mt-4 font-display text-4xl leading-tight sm:text-5xl">Referensi tarif: laporan 2 Januari 2026.</h3>
+                <p class="mt-5 max-w-lg text-sm leading-7 text-white/65">Angka berikut dikutip dari Beritajakarta 2 Januari 2026, bukan jaminan tarif saat ini. Konfirmasikan kategori pengunjung, cakupan tiket, kartu pembayaran dan biaya tambahan ke operator.</p>
                 <a href="/tiket" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[var(--gold)] transition hover:gap-3">Detail tiket & jam buka <span aria-hidden="true">↗</span></a>
               </div>
               <div class="grid border-t border-white/10 sm:grid-cols-2 lg:border-l lg:border-t-0">
@@ -516,17 +483,17 @@ const faqLd = {
             <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
               <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">01 · Bandara Soekarno–Hatta</span>
               <h3 class="mt-4 font-display text-3xl">Airport Railink + pusat kota</h3>
-              <p class="mt-4 text-sm leading-7 text-white/65">Naik KA Bandara menuju BNI City, lalu lanjut dengan taksi/transportasi daring atau TransJakarta ke kawasan Monas. Alternatif langsung: bus DAMRI tujuan Stasiun Gambir, kemudian lanjut berjalan kaki menuju sisi timur Monas.</p>
+              <p class="mt-4 text-sm leading-7 text-white/65">Periksa jadwal dan stasiun tujuan layanan bandara melalui operator; pilih sambungan ke Monas berdasarkan halte atau stasiun yang benar-benar dilayani, pintu aktif dan kondisi lalu lintas.</p>
             </article>
             <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
               <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">02 · TransJakarta</span>
               <h3 class="mt-4 font-display text-3xl">Turun di Monumen Nasional</h3>
-              <p class="mt-4 text-sm leading-7 text-white/65">Koridor 1 (Blok M–Kota), Koridor 2 (Pulo Gadung–Monumen Nasional), Koridor 3 (Kalideres–Monas via Veteran), serta beberapa rute seperti 1A, 5C, dan 14A memberi akses ke area Monas/Balai Kota/Juanda.</p>
+              <p class="mt-4 text-sm leading-7 text-white/65">Periksa rute, halte aktif dan pengalihan TransJakarta pada hari perjalanan. Pilih titik turun yang sesuai dengan pintu masuk Monas yang dibuka.</p>
             </article>
             <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
               <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">03 · Kereta & Gambir</span>
               <h3 class="mt-4 font-display text-3xl">Stasiun Gambir di sisi timur</h3>
-              <p class="mt-4 text-sm leading-7 text-white/65">Jika perjalanan Anda tiba di Stasiun Gambir, kawasan Monas berada tepat di sebelah barat stasiun. Pilih berjalan kaki melalui jalur yang dibuka atau gunakan kendaraan singkat sesuai kondisi akses hari itu.</p>
+              <p class="mt-4 text-sm leading-7 text-white/65">Gambir berada di sisi timur Monas. Konfirmasikan stasiun tujuan melalui operator; jangan menganggap semua kereta termasuk KRL berhenti di Gambir. Lanjutkan sesuai pintu masuk yang aktif.</p>
             </article>
             <article class="route-line rounded-[2rem] border border-white/10 bg-white/[.055] p-7 sm:p-8">
               <span class="text-xs font-bold uppercase tracking-[.22em] text-[var(--gold)]">04 · Taksi & transportasi daring</span>
@@ -581,7 +548,7 @@ const faqLd = {
             <article class="rounded-[2rem] bg-[var(--cream)] p-7">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-sm font-black tracking-widest text-[var(--gold)]">WC</span>
               <h3 class="mt-7 font-display text-2xl">Toilet umum</h3>
-              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Toilet umum tersedia di sejumlah titik dalam kawasan taman, umumnya dekat pintu masuk utama dan area layanan pengunjung. Sebagian toilet dipungut biaya kecil—siapkan uang pas. Di luar kawasan, Stasiun Gambir dan pusat perbelanjaan terdekat juga menyediakan toilet umum.</p>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Tanyakan lokasi toilet yang aktif, akses dan biaya kepada petugas pada hari kunjungan. Panduan ini tidak memverifikasi operasional atau tarif toilet di setiap pintu maupun fasilitas sekitar.</p>
             </article>
             <article class="rounded-[2rem] bg-[var(--cream)] p-7">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--red)] text-lg text-white">☕</span>
@@ -591,17 +558,17 @@ const faqLd = {
             <article class="rounded-[2rem] bg-[var(--cream)] p-7">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--gold)] text-xs font-black tracking-widest text-[var(--forest)]">ATM</span>
               <h3 class="mt-7 font-display text-2xl">Minimarket & ATM</h3>
-              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Minimarket tersebar di ruas Gambir dan Thamrin, sebagian buka 24 jam; swalayan dan supermarket umumnya berada di dalam pusat perbelanjaan terdekat. ATM tersedia di sekitar area IRTI, Stasiun Gambir, dan pusat perbelanjaan—berguna untuk tiket, parkir, dan jajanan.</p>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Jika memerlukan minimarket atau ATM, cari lokasi dan jam yang diperbarui pada peta atau aplikasi bank. Jangan menganggap semua fasilitas berada di dalam kawasan Monas atau beroperasi 24 jam.</p>
             </article>
             <article class="rounded-[2rem] bg-[var(--cream)] p-7">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-lg text-[var(--gold)]">⌂</span>
               <h3 class="mt-7 font-display text-2xl">Penginapan</h3>
-              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Pilihan penginapan di Gambir dan pusat kota beragam: hostel dan guesthouse untuk anggaran hemat hingga hotel berbintang untuk kenyamanan lebih. Sebagian besar berjarak jalan kaki singkat atau sekitar 5–15 menit berkendara dari Monas. Pastikan harga dan fasilitas melalui kanal pemesanan resmi.</p>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Untuk menginap di kawasan pusat kota, periksa alamat, rute ke pintu masuk aktif dan fasilitas melalui penyedia penginapan. Waktu perjalanan bergantung pada lalu lintas dan akses pada tanggal kunjungan.</p>
             </article>
             <article class="rounded-[2rem] bg-[var(--cream)] p-7">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--red)] text-lg text-white">⚡</span>
               <h3 class="mt-7 font-display text-2xl">SPBU & pengisian daya</h3>
-              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Stasiun pengisian bahan bakar umum (SPBU) berada di sejumlah ruas jalan utama sekitar Gambir dan Harmoni. Untuk kendaraan listrik, stasiun pengisian kendaraan listrik umum (SPKLU) mulai tersedia di pusat kota, umumnya di area parkir publik dan pusat perbelanjaan—periksa ketersediaannya sebelum berangkat.</p>
+              <p class="mt-3 text-sm leading-6 text-[var(--muted)]">Jika berkendara, konfirmasikan lokasi SPBU atau pengisian kendaraan listrik melalui operator terkait sebelum berangkat. Panduan ini tidak menjamin fasilitas tersebut berada di dalam Monas, tersedia atau sedang beroperasi.</p>
             </article>
             <article class="rounded-[2rem] bg-[var(--cream)] p-7">
               <span class="inline-flex size-11 items-center justify-center rounded-full bg-[var(--forest)] text-lg text-[var(--gold)]">P</span>

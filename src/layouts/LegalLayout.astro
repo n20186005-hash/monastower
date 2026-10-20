@@ -6,9 +6,10 @@ import { SITE_NAME, withSiteName } from '../data/site';
 interface Props {
   title: string;
   description: string;
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 const pageTitle = withSiteName(title);
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '');
@@ -24,7 +25,8 @@ const ogImageUrl = siteUrl ? new URL('/images/monas-hero.jpg', `${siteUrl}/`).to
     <meta name="theme-color" content="#19382f" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {!noindex && canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="id_ID" />
@@ -44,7 +46,7 @@ const ogImageUrl = siteUrl ? new URL('/images/monas-hero.jpg', `${siteUrl}/`).to
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP"></script>
     <script is:inline>
       const w = /** @type {any} */ (window);
       w.dataLayer = w.dataLayer || [];
