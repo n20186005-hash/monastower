@@ -205,3 +205,7 @@ header a, footer nav a { display:inline-flex; align-items:center; min-height:44p
   header > .section-shell { height:auto; min-height:80px; flex-wrap:wrap; padding-block:12px; gap:12px; }
   .main-nav { order:3; width:100%; gap:4px 16px; }
 }
+
+/* Keep long Indonesian words within narrow grid and article columns. */
+.grid > * { min-width:0; }
+main :is(h1,h2,h3,p,li,dd) { overflow-wrap:anywhere; }
